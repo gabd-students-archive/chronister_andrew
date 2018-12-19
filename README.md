@@ -11,7 +11,7 @@ The fish slapping dance is a **hilarious** clip from the British comedy troupe *
 
 ### Among my favorite British brands are:
      *Smithwicks
-     *Chiswick
+     *Youngs
      *Fullers
      
 ---
