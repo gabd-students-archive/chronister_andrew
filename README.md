@@ -33,7 +33,7 @@ Centenary Church | Publications | 1.5
 Red Letter | Video Producer | 23
 ---
 
-    > "Manners maketh man" -William Horman
+>  "Manners maketh man" -William Horman
 
  
  
