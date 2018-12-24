@@ -77,6 +77,25 @@ kable(head(iris),
 head(airquality)
 ```
 
+```{r}
+kable(head(airquality),
+      align= c("r", "r", "c", "l", "l"),
+      col.names = c("Ozone (ppb)", "Solar R (lang)", "Wind (mph)", "Temp (F°)", "Month", "Day"))
+```
 
+```{r}
+chicks_lm <- lm(weight ~ feed, data = chickwts)
 
+summary(chicks_lm)
+```
+
+```{r}
+kable(chickwts)
+```
+
+#when running kable on chickwts, there are two columns, grouped by the type of feed.  
+
+```{r}
+xtable(chicks_lm) %>%  kable()
+```
 
