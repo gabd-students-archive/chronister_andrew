@@ -263,9 +263,68 @@ ggplot(data = mpg) +
 
 
 **6:** When using `facet_grid()` you should usually put the variable with more unique levels in the columns. Why?
+#I don't know. I'll try it and see what happens...
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy))+
+  facet_grid(drv~class)
+
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy))+
+  facet_grid(class~drv)
+```
+#The vertical nature of the first plot looks and reads better than the horizontal nature of the second plot.  It also works better due to the rectangular nature of the screen that the plot is being viewed on.  There is more "real estate" across the top of the screen than there is down the side of the screen, therefore, you can view more columns than you can rows.  
 
 ### Section 3.6: Geometric objects
+#The two plots are similar in that they represent the data, however, the smooth line on the right shows the mean and the variance, where the scatterplot shows the individual values plotted. 
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy))
 
+ggplot(data = mpg)+
+  geom_smooth(mapping = aes(x=displ, y=hwy))
+```
+#adding the linetype function...
+```{r}
+ggplot(data = mpg)+
+  geom_smooth(mapping = aes(x=displ, y=hwy, linetype=drv))
+```
+#examples of using group and colors in geom_smooth
+```{r}
+ggplot(data = mpg)+
+  geom_smooth(mapping = aes(x=displ, y=hwy))
+
+ggplot(data = mpg)+
+  geom_smooth(mapping = aes(x=displ, y=hwy, group=drv))
+
+ggplot(data = mpg)+
+  geom_smooth(mapping = aes(x=displ, y=hwy, color=drv), show.legend = FALSE
+)
+```
+#plotting multiple geoms in same plot...
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy))+
+  geom_smooth(mapping = aes(x=displ, y=hwy))
+```
+#global mapping settings.  
+```{r}
+ggplot(data = mpg, mapping = aes(x=displ, y=hwy))+
+  geom_point()+
+  geom_smooth()
+```
+#now adding some local settings as well.
+```{r}
+ggplot(data = mpg, mapping = aes(x=displ, y=hwy))+
+  geom_point(mapping=aes(color=class))+
+  geom_smooth()
+```
+#Filter introduction
+```{r}
+ggplot(data = mpg, mapping = aes(x=displ, y=hwy))+
+  geom_point(mapping=aes(color=class))+
+  geom_smooth(data = filter(mpg, class=="subcompact"), se=FALSE)
+```
 
 
 #### Section 3.6.1 Questions
