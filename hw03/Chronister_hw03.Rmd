@@ -93,9 +93,42 @@ summary(chicks_lm)
 kable(chickwts)
 ```
 
-#when running kable on chickwts, there are two columns, grouped by the type of feed.  
+#when running kable on chickwts, there are two columns, grouped by the type of feed.  This is difficult to analyze, especially since it is not visible at the same time and requires scrolling.
 
 ```{r}
 xtable(chicks_lm) %>%  kable()
 ```
+
+```{r}
+summary(trees)
+
+```
+
+
+
+```{r}
+GirHeiTrees_lm <- lm(Girth ~ Height, data = trees)
+summary(GirHeiTrees_lm)
+```
+
+```{r}
+xtable(GirHeiTrees_lm) %>% kable()
+```
+
+This is where I'm going to attempt to footnote something.  [^1]
+
+Blank
+Text 
+for 
+testing...
+
+
+
+
+
+
+[^1]Here goes nothing....
+
+
+
 
