@@ -65,8 +65,18 @@ library(xtable)
 head(iris)
 ```
 
+```{r}
+kable(head(iris),
+      align= c("l", "c", "r", "c", "l"),
+      col.names = c("Sepal Length", "Sepal Width", "Sepal Length", "Sepal Width", "Species"))
+
+#I accidently read the l's as 1's and it took way too long for me to figure it out.  Need some new glasses!!! :D
+```
 
 ```{r}
-plot(cars)
+head(airquality)
 ```
+
+
+
 
