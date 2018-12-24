@@ -92,16 +92,84 @@ ggplot(data = mpg)+
   geom_point(mapping = aes(x=displ, y=hwy, color=class))
 ```
 
+#mapping mpg data using the size=class aesthetic.
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy, size=class))
+```
+
+#using class to alpha aesthetic, then class to shape.
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy, alpha=class))
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy, shape=class))
+```
+#the SUV class catagory wasn't mapped because only 6 different shapes can be used at a time.  
+
+#making all the points blue...
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy), color="blue")
+```
+
+
+
+
 
 #### Section 3.3 questions
 
 **1:** What’s gone wrong with this code? Why are the points not blue?
+#the line '"Color = "Blue"' should be outside of the aes parenthesis.  In other words, in order to make all of the plot points blue, the code should appear as:
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy), color="blue")
+```
+#...with a comma after the close parenthesis, and then the modifier. 
 
-
-**2:** Which variables in `mpg` are categorical? Which variables are continuous? (*Hint:* type `?mpg` to read the documentation for the dataset). How can you see this information when you run mpg?
+**2:** Which variables in `mpg` are categorical? Which variables are continuous? (*Hint:* type `?mpg` to read the documentation for the dataset). How can you see this information when you run mpg? 
+#I would say that "class", "fl", "drv", "trans" and "model" are all categorical variables because they have no numeric value.  "displ", "year", "cyl", "cty", "hwy" all have numeric value and would be continuous variables. 
 
 
 **3:** Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical vs. continuous variables? **Note:** You need several code chunks here to answer this question.
+#mapping with color set to year.
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy, color=year))
+```
+#size set to number of cylinders...
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy, size=cyl))
+```
+#mapping with city milage set to shape. this should be interesting.  :D
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy, shape=cty))
+```
+#well, that didn't go well.  continuous variables can't be mapped to shapes.  
+
+#mapping color to catagorical variables:
+#color = fuel
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy, color=fl))
+```
+#now plotting size to drive type
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy, size=drv))
+```
+#lastly, shape mapped with type of transmission
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy, shape=trans))
+```
+#whoa, didn't realize there would be that many categories of transmission.  I'll plot it again using fuel type to shape.
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy, shape=fl))
+```
 
 
 **4:** What happens if you map the same variable to multiple aesthetics?
