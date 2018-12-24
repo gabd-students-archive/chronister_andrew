@@ -173,14 +173,24 @@ ggplot(data = mpg)+
 
 
 **4:** What happens if you map the same variable to multiple aesthetics?
-
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy, alpha=class, color=class, size=class))
+```
+#It appears that all of the aesthetics will apply to the variable.  
 
 **5:** What does the stroke aesthetic do? What shapes does it work with? (*Hint:* use `?geom_point`)
-
-
+```{r}
+?geom_point
+```
+#It appears that the stroke aesthetic will work on shapes theat have a border. by adjusting the stroke setting, you adjust the width of the border of the shape.  Shapes 21-24 all have a shape with a border. The shape can be filled with a certain color using the fill aesthetic and the border can be adusted with the stroke aesthetic. 
 
 **6:** What happens if you map an aesthetic to something other than a variable name, like `aes(colour = displ < 5)`?
-
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy, color=displ <5))
+```
+#Applying the color=display<5 line performed a true or false calculation on the variables. Is the displacement less than 5?  If true, make the color one color, and false is another color.
 
 ### Section 3.5: Facets
 
