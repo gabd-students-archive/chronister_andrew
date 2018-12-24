@@ -69,12 +69,28 @@ ggplot(data = mpg)
 #drv represents whether the vehicle is front wheel, rear wheel or 4-wheel drive.
 
 **4:** Make a scatterplot of `hwy` vs `cyl`.
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=hwy, y=cyl))
+```
+#that plot makes sense.  
 
 
 **5:** What happens if you make a scatterplot of `class` vs `drv`? Why is the plot not useful?
 
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=class, y=drv))
+```
+#The plot is not useful because all of the results are stacked on top of each other at each intersection. In other words, the intersection of compact class and 4 drv may have multiple vehicles represented, but vecause they are stacked on top of each other, you can't tell.  
+
 
 ### Section 3.3: Aesthetic mappings
+#mapping mpg data using color aesthetic for class. 
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy, color=class))
+```
 
 
 #### Section 3.3 questions
