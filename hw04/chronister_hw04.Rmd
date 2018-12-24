@@ -193,28 +193,73 @@ ggplot(data = mpg)+
 #Applying the color=display<5 line performed a true or false calculation on the variables. Is the displacement less than 5?  If true, make the color one color, and false is another color.
 
 ### Section 3.5: Facets
+#trying out facets...
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy))+
+  facet_wrap(~class, nrow=2)
+```
+#faceting on two variables, drive and cylinders:
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy))+
+  facet_grid(drv~cyl)
+```
 
 
 
 #### Section 3.5 questions
 
 **1:** What happens if you facet on a continuous variable? **Note:** Write a prediction, then make and run your code chunk.
+#My prediction is either that an error will occur, or it will create multiple plots with single points plotted on them, depending on how many discrete values there are.  We'll see.  
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy))+
+  facet_wrap(~cty, nrow = 2)
+```
+
 
 
 
 **2:** What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean? How do they relate to this plot?
+#The empty cells in the drv~cyl plot mean that there are no vehicles that meet that criteria.  Another way to look at it, no vehicles meet those categories.  For instance, there are very few cars with 5 cylinder engines. The only vehicles that use 5 cylinder engines in this data set happen to be front wheel drive.  There are no rear weel drive or 4 wheel drive 5 cyl engine vehicles in any displacement, so there are no points to plot.  Same goes for 4 cyl rear wheel drive vehicles.  There are none in the dataset. 
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=drv, y=cyl))
+```
+#The relation to this plot is that the drv~cyl plot is based on categorical data in the drv category, and continuous data in cyl with a limited number. cyl almost acts as another categorical data set because the vehicles all fall in one of four cyl types.  
 
 
 
 **3:** What plots does the following code make? What does `.` do?
-
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy))+
+  facet_grid(drv~. )
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy))+
+  facet_grid( .~cyl)
+```
+#the "." makes the facet_grid only create columns or rows based on the data in the specified variable instead of creating separate plots based on two variables.  
 
 
 **4:** Take the first faceted plot below. What are the advantages to using faceting instead of the colour aesthetic? What are the disadvantages? How might the balance change if you had a larger dataset?
-
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+```
+#The benefits to using the facet over the color aesthetic is that multiple colors in close proximity may be difficult or impossible to distinguish.  by faceting, it is much easier to see the different groupings. The disadvantage is that now you are dealing with seven different plots instead of one.  With a larger dataset, the color aesthetic would be harder and harder to justify because the plot would appear as a colorful blob.  
 
 
 **5:** Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? What other options control the layout of the individual panels? Why doesn’t `facet_grid()` have nrow and ncol argument?
+```{r}
+?facet_wrap
+?facet_grid
+```
+#nrow and ncol fix the number of rows and columns.  Other options that control the output include scales and shrink, which allow the scale to change depending on the output of the statistics.  There is also a drop feature that allows you to drop unused factor levels. 
+
+#the Facet_grid function does not have nrow and ncol arguement because it forms a matrix of two variables and they will fall in a grid based on those variables.
 
 
 **6:** When using `facet_grid()` you should usually put the variable with more unique levels in the columns. Why?
