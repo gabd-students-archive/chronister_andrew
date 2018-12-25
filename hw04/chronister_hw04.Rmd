@@ -330,20 +330,42 @@ ggplot(data = mpg, mapping = aes(x=displ, y=hwy))+
 #### Section 3.6.1 Questions
 
 **1:** What geom would you use to draw a line chart? A boxplot? A histogram? An area chart? **Note:** You will have to make some types of these charts in Part 2 of this assignment.
-
+#Depending on the number of variables involved and whether continuous or categorical, a line chart can be made with geom_path or geom_freqpoly, a boxplot can be created with geom_boxplot, a histogram can be created with geom_histogram,and an area chart can be created with geom_area.  
 
 **2:** Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
-
-
+#I believe it will create a scatterplot with different colors representing drive type. The smooth geom will create a line that represents the same data.  Not sure about the se yet...
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() + 
+  geom_smooth(se=FALSE)
+```
+#ah, se=False turns off the range or variance feature of smooth.
 
 **3:** What does `show.legend = FALSE` do? What happens if you remove it?
 **Note:** Skip the "Why do you think I used it earlier in the chapter?" question.
-
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() + 
+  geom_smooth(show.legend = FALSE)
+```
+#show.legend = toggles the legend on and off next to the plot.
 
 **4:** What does the `se` argument to `geom_smooth()` do?
+#toggling se on and off shows and hides the grey shaded areas that show varience from the mean or center of the line.
 
 
 **5:** Will these two graphs look different? Why/why not?
+#I believe the two graphs will be the same.  One applies the same information to both, while the second spells out the data, mappping and variable information in each geom function.
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth()
+
+ggplot() + 
+  geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
+```
 
 
 **6:** Recreate the R code necessary to generate the following graphs. **Note:** Enter a separate code chunk for each graph, numbered 1 to 6, starting row-wise at upper left. 
