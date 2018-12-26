@@ -413,10 +413,10 @@ ggplot(data = mpg, mapping = aes(x=displ, y=hwy))+
 6: lower right. *Hint:* Read the help file for `geom_point`. Use `shape = 21`, `stroke = 2`, and `size = 3`.
 ```{r}
 ggplot(data = mpg, mapping = aes(x=displ, y=hwy))+
-  geom_point(size=3, shape=21, stroke=2, color="white", mapping = aes(fill=drv))
+  geom_point(size=3, stroke=2, color="white", shape=21, mapping = aes(fill=drv))
   
 ```
-
+#Still doesn't look exactly like the example.  The stroke appears to cover other data points.  
 
 ### Section 3.7: Statistical transformations.
 
@@ -424,28 +424,82 @@ ggplot(data = mpg, mapping = aes(x=displ, y=hwy))+
 
 
 ### Section 3.8 Position adjustments
+```{r}
+ggplot(data=diamonds)+
+  geom_bar(mapping = aes(x=cut, color=cut))
+ggplot(data = diamonds)+
+  geom_bar(mapping = aes(x=cut, fill=cut))
+```
+```{r}
+ggplot(data = diamonds)+
+  geom_bar(mapping = aes(x=cut, fill=clarity))
+```
+```{r}
+ggplot(data = diamonds, mapping = aes(x=cut, fill=clarity))+
+  geom_bar(alpha=1/5, position="identity")
+```
+```{r}
+ggplot(data = diamonds, mapping = aes(x=cut, color=clarity))+
+  geom_bar(fill=NA, position="identity")
+```
+```{r}
+ggplot(data = diamonds)+
+  geom_bar(mapping = aes(x=cut, fill=clarity), position="fill")
+```
+```{r}
+ggplot(data = diamonds)+
+  geom_bar(mapping = aes(x=cut, fill=clarity), position="dodge")
+```
+```{r}
+ggplot(data = mpg)+
+  geom_point(mapping = aes(x=displ, y=hwy), position = "jitter")
+```
 
 
 #### Section 3.8 Questions
 
 **1:** What is the problem with this plot? How could you improve it. *Hint:* Remember the size of the `mpg` data set from earlier in this exercise. Does the number of points seem correct? **Note:** Write the code to improve it. 
+#Many points are mapped on top of each other, which makes this graphical representation of the data misleading.  By adding jitter, a more "accurate" image of the data can be found, (unless one looks closely at the data and sees that noise has been added to move the points apart slightly so they can be seen.)
+```{r}
+ggplot(data = mpg, mapping = aes(x=cty, y=hwy))+
+  geom_jitter()
+```
+
 
 
 **2:** What parameters to `geom_jitter()` control the amount of jittering?
-
+#by reading the ?geom_jitter help, width and height parameters control the amount of jittering. The default is 40%.  
 
 **3:** Compare and contracts `geom_jitter()` with `geom_count()`.
-
+```{r}
+ggplot(data = mpg, mapping = aes(x=cty, y=hwy))+
+  geom_count()
+```
+#geom_count counts the number of observations at each location then plots the count to the area, in the example above, it presents the count by altering the size aesthetic, so that the larger the size of the point, the more observations appear at that point.  geom_jitter on the other hand, simply adds noise to the x,y location of each observation in order to separate them from each other so that the plotted points can be seen.  
 
 **4:** What is the default position adjustement for `geom_boxplot()`? Create a visualization of the `mpg` dataset that demonstrates it.
+#If I understand the question correctly, the default position for boxplot seems to be "dodge2", which "preserves the vertical position of geom while adusting the horizontal position." according to the help.    
+```{r}
+ggplot(data = mpg, mapping =aes(x=cty, y=hwy))+
+  geom_boxplot()
+```
 
 
 ### Section 3.9: Coordinate systems
 
 **Note:** Read about and do only the code chunk associated with `coord_flip()`. `coord_flip()` is a great layer to use when you have categorical data with longish names as it makes the text easier to read.
 
+```{r}
+ggplot(data = mpg, mapping = aes(x=class, y=hwy))+
+  geom_boxplot()
+ggplot(data = mpg, mapping = aes(x=class, y=hwy))+
+  geom_boxplot()+
+  coord_flip()
+```
+#skipping the quickmap, polar and exercises from this section.
+
 ### Section 3.10: The layered grammar of graphics
 
 Just read this section as a contextual review of everything you just learned.
-
+#Done... whew.  This assignment sure seemed long.  Maybe it was the egg nog.  :D
 
