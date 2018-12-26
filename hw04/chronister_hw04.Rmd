@@ -371,21 +371,52 @@ ggplot() +
 **6:** Recreate the R code necessary to generate the following graphs. **Note:** Enter a separate code chunk for each graph, numbered 1 to 6, starting row-wise at upper left. 
 
 1: upper left.
-
+```{r}
+ggplot(data = mpg, mapping = aes(x=displ, y=hwy))+
+  geom_point(size=3)+
+  geom_smooth(se=FALSE)
+```
+#It appeared that the size of the scatterplot points in the example was set larger than the default, but didn't vary, so I just set the size to three to make it look similar.  
 
 2: upper right.
-
+```{r}
+ggplot(data = mpg, mapping = aes(x=displ, y=hwy))+
+  geom_point(size = 3)+
+  geom_smooth(se=FALSE,mapping=aes(group = drv))
+```
+#took a little trial and error on that one to be honest.
 
 3: middle left.
+```{r}
+ggplot(data = mpg, mapping = aes(x=displ, y=hwy, color=drv))+
+  geom_point(size=3)+
+  geom_smooth(se=FALSE)
+```
 
 
 4: middle right.
+```{r}
+ggplot(data=mpg, mapping = aes(x=displ, y=hwy))+
+  geom_point(size=3, mapping=aes(color=drv))+
+  geom_smooth(se=FALSE)
+```
 
 
 5: lower left.
+```{r}
+ggplot(data = mpg, mapping = aes(x=displ, y=hwy))+
+  geom_point(size=3, mapping = aes(color=drv))+
+  geom_smooth(se=FALSE, mapping = aes(linetype=drv))
+```
 
 
 6: lower right. *Hint:* Read the help file for `geom_point`. Use `shape = 21`, `stroke = 2`, and `size = 3`.
+```{r}
+ggplot(data = mpg, mapping = aes(x=displ, y=hwy))+
+  geom_point(size=3, shape=21, stroke=2, color="white", mapping = aes(fill=drv))
+  
+```
+
 
 ### Section 3.7: Statistical transformations.
 
