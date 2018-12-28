@@ -161,12 +161,46 @@ Read [R4ds Chapter 11: Data Import](https://r4ds.had.co.nz/data-import.html), se
 ### 11.1 Introduction
 
 Nothing to do here unless you took a break and need to reload `tidyverse`.
+```{r}
+library(tidyverse)
+```
+
 
 ### 11.2 Getting started.
 
 Do *not* run the first code chunk of this section, which begins with `heights <- read_csv("data/heights.csv")`. You do not have that data file so the code will not run.
 
 Enter and run the remaining chunks in this section.
+```{r}
+read_csv("a,b,c
+1,2,3
+4,5,6")
+```
+#Hmm, that didn't work.  Oh. Had to reload tidyverse.  Working fine now.  This example used the first line, "a,b,c" as the column names.  The following lines filled in as data. 
+
+```{r}
+read_csv("The first line of metadata
+         The second line of metadata
+         x,y,z
+         1,2,3", skip=2)
+
+read_csv("#A comment I want to skiperadoony
+         x,y,z
+         1,2,3", comment ="#")
+```
+#The first example skips two lines and begins creating the columns on the third line, which is great since the first two lines are metadata.  In the second example, the comment, which begins with "#" is removed with the comment="#" line. 
+```{r}
+read_csv("1,2,3\n4,5,6", col_names = FALSE)
+```
+#Since the data has no column names, col_names=FALSE instructs read_csv to create them using X1, X2, etc.
+```{r}
+read_csv("1,2,3\n4,5,6", col_names = c("x", "y", "z"))
+```
+#In this example, I used a character vector to name each column.
+```{r}
+read_csv("a,b,c\n1,2,.", na=".")
+```
+#this example shows how to insert a NA into the tibble using "."
 
 
 #### 11.2 Questions
