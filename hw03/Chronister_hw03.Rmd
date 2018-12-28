@@ -114,6 +114,8 @@ summary(GirHeiTrees_lm)
 ```{r}
 xtable(GirHeiTrees_lm) %>% kable()
 ```
+#I may not get points for this, but better late than never!  My mistake.
+$$p + \frac{1}{2}pV^2 + pgh = constant.$$
 
 This is where I'm going to attempt to footnote something.  [^1]
 
@@ -127,7 +129,7 @@ testing...
 
 
 
-[^1]Here goes nothing....
+^[Here goes nothing....footnote second try]
 
 
 
