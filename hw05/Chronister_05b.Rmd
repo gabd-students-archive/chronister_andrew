@@ -144,6 +144,53 @@ ggplot(data = darters, mapping = aes( x=length, y=species))+
 #I am getting a similar error about 1d atomic vector.  REALLY frustrated. Sensing a trend, and have been working on this for about 5 hours now.  Moving on to Abalone.
 
 ####Abalone
+#Chunk1
+```{r}
+library(tidyverse)
+file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data/"
+abalone <- read_csv(file.path(file_path, "abalone.csv")) %>%
+  subset(select=-X1) %>%
+  ggplot(mapping = aes(x=Type, y=Height))+
+  geom_boxplot()
+abalone
+
+
+```
+#Chunk 2
+```{r}
+abalone2 <- read_csv(file.path(file_path, "abalone.csv"))
+ggplot(data = abalone2, mapping = aes(x=Height, y=Rings))+
+  geom_point()
+```
+#No, it appears that the extremely large individuals are between 8-10 years old, which is a little on the young size.
+
+#Chunk3
+```{r}
+abalonefilt <- filter(abalone2, Height<0.3)
+abalonefilt$Type <- factor(abalonefilt$Type, levels = c("I", "M", "F"), ordered =TRUE)
+ggplot(data = abalonefilt)+
+  geom_point(mapping = aes(x=Rings, y=Height, color=Type))
+
+```
+#Males and Females tend to be larger than immatures, with Females being the largest. Some Immatures do appear in sizes that match or are larger than Males or Females.
+
+#Chunk 4
+```{r}
+AbaloneErrors <- filter(abalonefilt, Height==0)
+AbaloneErrors
+is.na(abalonefilt) <- !abalonefilt
+ggplot(data=abalonefilt)+
+  geom_point(mapping = aes(x=Rings, y=Height, color=Type))
+```
+#Chunk5
+```{r}
+
+ggplot(data = abalonefilt)+
+  geom_point(mapping=aes(x=Rings, y=ShuckedWeight, color=Type))
+ggplot(data=abalonefilt)+
+  geom_point(mapping = aes(x=Rings, y=ShellWeight, color=Type))
+```
+#It appears that after around age 11, the weight of the shell increases as the shucked weight decreases.  
 
 
 
