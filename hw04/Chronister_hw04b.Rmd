@@ -86,8 +86,32 @@ ggplot(data = msleep, mapping = aes(x=order, y=sleep_total))+
 ####Plot 8
 ```{r}
 data(msleep)
-
+ggplot(data = msleep, mapping = aes(x=conservation, y=awake, color=conservation))+
+  geom_boxplot()+
+  geom_point()+
+  geom_jitter()+
+  xlab("Conservation")+ylab("Awake")+
+  guides(color=guide_legend(title = "Conservation"))
 ```
+#I liked the chart without the coordinate flip.  It doesn't seem like there is any obvious correlation between endangered status and the amount of time the mammal is awake per day.
+
+####Plot 9 and 10
+
+```{r}
+data("msleep")
+ggplot(data = msleep, mapping = aes(x=sleep_total, y=bodywt, color=vore))+
+  geom_point()+
+  facet_wrap(~vore, nrow=2)+
+  xlab("Body Weight")+ylab("Sleep Total")+
+  guides(color=guide_legend(title = "Vore"))
+  
+ggplot(data = msleep, mapping = aes(x=sleep_total, y=brainwt, color=conservation))+
+  geom_point()+
+  xlab("Sleep Total")+ylab("Brain Weight")+
+  guides(color=guide_legend(title="Conservation"))+
+  coord_flip()
+```
+#In graph 1, there are very few mammals that weigh over 1000 kg. This skews the scale and makes it more difficult to read.  If I had more time, I might look up a way to make the scale more logarithmic so the lower values could be seen more accurately.  In graph 2, it appears that there is a cluster of mammals that require between 8-12 hours of sleep every day.  It also appears that larger animals with larger brains generally require less sleep than smaller ones. Again, the relative scarcity of brainwts that are over 1 kg means that the values of the smaller brainwts are harder to see because the scale is skewed.  Again, a logarithmic scale might help with that problem.  (and I'm sure that can be done...)
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
 
