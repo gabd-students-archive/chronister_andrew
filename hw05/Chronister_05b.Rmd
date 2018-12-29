@@ -96,12 +96,13 @@ ggplot(data = TidyRoseate, mapping = aes(x=year, y=Count))+
 
 ```{r}
 library(tidyverse)
-file_path <- "~Documents/BI685Files/GitHubDocs/chronister_andrew/data/"
-start_pos <- c(1,4,15,16,17,18,21,25,29,33,36,39,40)
-stop_pos <- c(3,14,15,16,17,20,24,28,32,35,38,40,41)
+file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data/"
+start_pos <- c(1,4,15,16,17,18,21,25,29,33,36,39,41)
+end_pos <- c(3,14,15,16,17,20,24,28,32,35,38,40,42)
 names <- c("specimen id", "species", "riffle", "age ", "sex", "length ", "depth", "velocity ", "temperature ", "majsub", "minsub", "majtype", "mintype")
-darters <- read.fwf(file.path(file_path, "darters.txt"), fwf_positions(start_pos, stop_pos),skip = 15)
+darters <- read_fwf(file.path(file_path,"darter.txt"), fwf_positions(start_pos, end_pos, col_names = names),skip = 13)
 darters
+
 ```
 
 
