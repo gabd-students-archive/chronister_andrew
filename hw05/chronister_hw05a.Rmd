@@ -427,32 +427,65 @@ Study Figure 5.1 carefully. Once you learn the `&`, `|`, and `!` logic, you will
 
 **1.1:** Find all flights with a delay of 2 hours or more.
 ```{r}
-
+filter(flights, arr_delay >= 120, dep_delay >= 120)
 ```
 
 
 
+
 **1.2:** Flew to Houston (IAH or HOU)
+```{r}
+filter(flights, dest=="IAH"| dest=="HOU")
+```
 
 
 **1.3:** Were operated by United (UA), American (AA), or Delta (DL).
+```{r}
+filter(flights, carrier=="UA" | carrier=="AA" | carrier=="DL")
+```
 
 
 **1.4:** Departed in summer (July, August, and September).
+```{r}
+filter(flights, month==7 | month==8 | month==9)
+```
 
 
 **1.5:** Arrived more than two hours late, but didn’t leave late.
+```{r}
+filter(flights, arr_delay>=120 & dep_delay<0)
+```
+
 
 **1.6:** Were delayed by at least an hour, but made up over 30 minutes in flight. This is a tricky one. Do your best.
+```{r}
+filter(flights, dep_delay>=60, arr_delay<=30)
+```
+#This is somewhat close, but not right...  I'm not sure how to write it, but it should be sched_arr_time - sched_dep_time to determine the expected flight time, then filter flights by those that are 60 minutes delayed departure, then from those, filter by expected time - air_time = >30minutes.  
 
 
 **1.7:** Departed between midnight and 6am (inclusive)
+```{r}
+filter(flights, dep_time >=0000, dep_time<=0600)
+```
 
 
 **2:** Another useful dplyr filtering helper is `between()`. What does it do? Can you use it to simplify the code needed to answer the previous challenges?
+#This code pulls values from the vector table that fall between the two values, x>= and x<=. This code helps with at least two of the questions.  
+```{r}
+filter(flights, between(month, 7,9))
+filter(flights, !between(dep_time, 0000, 0600))
+```
+
+
 
 
 **3:** How many flights have a missing dep_time? What other variables are missing? What might these rows represent?
+#There are 8255 records that are missing a departure time, There are also 8255 records that lack departure delay information, 8713 records that lack arrival time, 9430 records that lack arrival delay information and 9430 records that lack airtime info.  This may indicate flights that were cancelled.
+```{r}
+summary(flights)
+```
+
 
 
 **4:** Why is `NA ^ 0` not missing? Why is `NA | TRUE` not missing? Why is `FALSE & NA` not missing? Can you figure out the general rule? (`NA * 0` is a tricky counterexample!)
