@@ -116,17 +116,34 @@ darters_major_type
 ```
 #Pipe functions, eliminate the zonale and tetrazonum...
 ```{r}
-darters %>%
+darter2 <- darters %>%
   filter(!species %in% c("zonale", "tetrazonum")) %>%
   subset(select=-c(mintype, minsub)) %>%
   rename(major_substrate = majsub) %>%
   rename(major_type = majtype) %>%
-  arrange(`specimen id`)
+  arrange(`specimen id`) 
+  
+  
+darter2
   
 ```
+# Plot 1
+```{r}
+ggplot(data = darters, !is.na(length), mapping = aes(x=length, y=depth, color=species, shape=species))+
+  geom_point() +
+  facet_wrap(~riffle, nrow=2)
+```
+#I cannot get ggplot to work because it says that "length" needs to be a 1d atomic vector.  I have tried to eliminate the one NA value, thinking it is the problem, but have had no success.  
 
+#plot 2
+```{r}
+ggplot(data = darters, mapping = aes( x=length, y=species))+
+  geom_boxplot()
 
+```
+#I am getting a similar error about 1d atomic vector.  REALLY frustrated. Sensing a trend, and have been working on this for about 5 hours now.  Moving on to Abalone.
 
+####Abalone
 
 
 
