@@ -206,20 +206,27 @@ read_csv("a,b,c\n1,2,.", na=".")
 #### 11.2 Questions
 
 **1:** What function would you use to read a file where fields were separated with "|"?
-
+#read_delim should be able to determine the field separation.
 
 
 **2:** (This question is modified from the text.) Finish the two lines of `read_delim` code so that the first one would read a comma-separated file and the second would read a tab-separated file. You only need to worry about the delimiter. Do not worry about other arguments. Replace the dots in each line with the rest of your code. 
 
 # Comma-separated
 `file <- read_delim("file.csv", ...)`
+```{r}
+`file <- read_csv("file.csv",...)`
+```
+
 
 # Tab-separated
 `file <- read_delim("file.csv", ...)`
+```{r}
+`file <- read_tsv("file...")
+```
 
 
 **3:** What are the two most important arguments to `read_fwf()`? Why?
-
+#the most important arguments to read_fwf are col_positions and fwf_width because the data does not contain any deliminator information. The read_fwf function must be provided with the column positions and the width of each column in order to accurately organize the data into a table. 
 
 **4:** Skip this question
 
@@ -228,15 +235,32 @@ read_csv("a,b,c\n1,2,.", na=".")
 
 ```{r}
 read_csv("a,b\n1,2,3\n4,5,6")
+```
+#1. There are only two column headers listed, a,b, but there are three sets of variables per line.  Therefore, the number of columns doesn't match.  
+ 
+```{r}
 read_csv("a,b,c\n1,2\n1,2,3,4")
+
+```
+#2.The data has three columns, but the first row of data is missing a value for C and the second row of data has an extra column of data.  The graph is displayed, but the fourth value for row two is discarded.
+```{r}
 read_csv("a,b\n\"1")
+```
+#3. This code attempts to create a table with two columns, but then the first row has no data and a second forward slash. read_csv does its best and creates a table with one row with an a value of 1. 
+```{r}
 read_csv("a,b\n1,2\na,b")
+```
+#4. This table has column headings but then contains numeric and text data in the same columns. This seems like it might be problematic. Also, I'm wondering if the \na,b is supposed to show a NA value, like \n.,b"?", na="."?  
+```{r}
 read_csv("a;b\n1;3")
 ```
+#5. Assuming that we want columns a, b and values of 1, 3, the code should contain commas, not semicolons. The use of semicolons creates one column that is character based.
+
 
 ### 11.3 and 11.4: Not required
 
 ### 11.5: Writing to a file
+
 
 Just read this section. You may find it helpful in the future to save a data file to your hard drive. It is basically the same format as reading a file, except that you must specify the data object to save, in addition to the path and file name.
 
