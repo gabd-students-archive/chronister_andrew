@@ -1,0 +1,97 @@
+---
+title: "HW04 Part 2"
+author: "Andrew Chronister"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+library("tidyverse")
+
+```
+```{r}
+data("faithful")
+?faithful
+```
+
+####Plot 1
+```{r}
+data(trees)
+?trees
+trees
+```
+
+```{r}
+ggplot(data = trees)+
+  geom_point(mapping = aes(x=Height, y=Girth))
+```
+#This scatterplot isn't as linear as I would expect.  I thought that girth and height would be more directly proportional.
+####Plot2
+```{r}
+data("lynx")
+?lynx
+```
+
+```{r}
+data("lynx")
+year <- c(1821:1934)
+pelts <- as.vector(lynx)
+lynx_pelts <- data_frame(year, pelts)
+ggplot(data = lynx_pelts)+
+  geom_line(mapping = aes(x=year, y=pelts, color="maroon"))
+```
+#Interesting representation.  It appears that the population of lynxes crashes multiple times, in a cyclical way.  I wonder if over hunting causes the crashes, then it takes several years for the population to recover, or if there were some hunting restrictions in place.  Although, given the dates, 1800s through early 1900s, I would think there were few to no restrictions.
+
+####Plot 3
+```{r}
+data(iris)
+?iris
+ggplot(data = iris, mapping = aes(x=Petal.Length, y=Petal.Width, size=2))+
+  geom_point(mapping=aes(color=Species, shape=Species))+
+  xlab("Petal Length")+
+  ylab("Petal Width")
+
+```
+#Not knowing much about Iris species, it appears that virginica has significantly larger petal length and width than setosa.  Versicolor appears to be more similar in size to virginica.
+
+####Plot 4 and 5
+```{r}
+data(msleep)
+?msleep
+ggplot(data = msleep, mapping = aes(x=vore, y=sleep_rem))+
+  geom_violin(fill="grey30")
+
+```
+```{r}
+ggplot(data = msleep, mapping = aes(x=vore, y=sleep_rem))+
+  geom_violin(fill="grey70")
+```
+#The two violin plots display several ranges of information. The longest part of the plot represents the entire range of responses where as the width of the plot shows the mode.  The fill is set to 30 then 70 which adjusts the darkness of the plot.  I am wondering if the fill range could be adjusted to show variation within the shape based on the density of the responses.  
+
+####Plot 7  (no 6 is listed)
+```{r}
+data(msleep)
+ggplot(data = msleep, mapping = aes(x=order, y=sleep_total))+
+  geom_boxplot()+
+  coord_flip()
+```
+#From the plotted data, it appears that some orders, such as carnivora, and rodentia have huge sleep requirements while other orders, such as Lagomorpha, rabbits, have extremely low sleep requirements. wow.  
+
+####Plot 8
+```{r}
+data(msleep)
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
