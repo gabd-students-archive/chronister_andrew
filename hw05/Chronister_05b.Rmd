@@ -1,0 +1,95 @@
+---
+title: "Chronister_05b.Rmd"
+author: Andrew Chronister
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+library(tidyverse)
+file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data/"
+limpets <- read_csv(file.path(file_path, "limpets.csv"))
+```
+#I had all sorts of problems understanding the difference between file_path vs file.path.  Finally got it figured out.  
+####Limpets
+```{r}
+limpets
+```
+
+
+#It appears that the Data is tidy. each variable has a column, each observation has a row and each value has a cell.
+```{r}
+limpets <- read_csv(file.path(file_path, "limpets.csv"), col_types = "ncc")
+limpets
+```
+
+```{r}
+SiteOrder <- c("PBL", "KNRM","VBG", "WP", "PF", "DP", "SIO", "CTZ1", "CTZ2", "CNM")
+limpetSitesOrdered <- factor(limpets, levels = SiteOrder, ordered =TRUE)
+limpetSitesOrdered
+
+```
+
+#boxplot
+```{r}
+ggplot(data = limpets, mapping = aes(x=Site, y=Length, color=Protected))+
+  geom_boxplot()
+```
+#change axis labels
+```{r}
+ggplot(data = limpets, mapping = aes(x=Site, y=Length, color=Protected))+
+  geom_boxplot()+
+  xlab("Site")+ylab("Length (mm)")
+```
+#description: The DP and WP sites have outliers as indicated by the points that lie outside the boxplot whiskers.  The protected sites tend to have larger limpets as well as a greater range of lengths.  
+
+####Roseate Terns
+
+```{r}
+library(tidyverse)
+file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data/"
+roseate <- read_tsv(file.path(file_path, "roseate_terns.txt"))
+
+```
+```{r}
+roseate
+```
+#The data is not tidy
+```{r}
+TidyRoseate <- roseate %>% 
+  gather("AR", "AL", "AC", "BR", "BL", "BC", "JR", "JL", "JC", key = "Site", value = "Count")
+TidyRoseate
+
+```
+#now to remove the missing counts
+
+```{r}
+filter(TidyRoseate, is.na(Count)==FALSE)
+```
+
+```{r}
+ggplot(data = TidyRoseate, mapping = aes(x=year, y=Count))+
+  geom_line()+
+  facet_wrap(~Site, nrow=2)
+
+```
+#at first I plotted without doing facet_wrap and the line looked like saw teeth.  Not useable. 
+
+#change axis labels
+```{r}
+ggplot(data = TidyRoseate, mapping = aes(x=year, y=Count))+
+  geom_line()+
+  facet_wrap(~Site, nrow = 2)+
+  ylab("Year")+xlab("Count")
+```
+#Populations in AC, AL, AR, BC, BL, JC, and JL all increased in size, although AL and AR are the ones that show really obvious growth.  BR and JR show obvious decreases and some volatility.  
+
+#Breaks in the lines indicate places where the data was unavailable, and likely had a value of NA.  We removed those values so there is nothing to map in those sections.
+
+
