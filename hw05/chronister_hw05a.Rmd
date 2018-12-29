@@ -269,6 +269,13 @@ Just read this section. You may find it helpful in the future to save a data fil
 ## Chapter 18: Pipes
 
 Read [R4ds Chapter 18: Pipes](https://r4ds.had.co.nz/pipes.html), sections 1-3.
+```{r}
+msleep %>% 
+  select(bodywt, brainwt, vore) %>%
+  drop_na() %>%
+  ggplot()+
+  geom_point(aes(x=bodywt, y=brainwt, color=vore))
+```
 
 Nothing to do otherwise for this chapter. Is this easy or what?
 
@@ -285,12 +292,36 @@ Nothing to do here unless you took a break and need to reload the `tidyverse.`
 ### 12.2 Tidy data
 
 Study Figure 12.1 and relate the diagram to the three rules listed just above them. Relate that back to the example I gave you in the notes. Bear this in mind as you make data tidy in the second part of this assignment.
+#in the beetle example in the notes, Each variable needs its own column. In the case of plot and sample, that is correct, but species is broken into 5 different columns instead of one that represents how many appeared in the sample. Each observation must have its own row, which is correct in the example, and each value should have its own cell.
 
 You do not have to run any of the examples in this section.
 
 ### 12.3
 
 Read and run the examples through section 12.3.1 (gathering), including the example with `left_join()`. We'll cover joins later.
+```{r}
+table4a
+```
+```{r}
+ table4a %>%
+  gather(`1999`, `2000`, key="year", value="cases")
+```
+```{r}
+table4b %>%
+  gather(`1999`, `2000`, key="year", value="population")
+```
+
+```{r}
+tidy4a <- table4a %>%
+  gather(`1999`, `2000`, key = "year", value = "cases")
+tidy4b <- table4b %>%
+  gather(`1999`,  `2000`,  key="year",  value="population")
+left_join(tidy4a, tidy4b)
+```
+```{r}
+table2 %>%
+  spread(key=type, value=count)
+```
 
 #### 12.3 Questions
 
@@ -301,6 +332,12 @@ table4a %>%
   gather(1999, 2000, key = "year", value = "cases")
 #> Error in inds_combine(.vars, ind_list): Position must be between 0 and n
 ```
+#The years are non-syntatic names, so they need to be enclosed in backtick marks.
+```{r}
+table4a %>%
+  gather(`1999`, `2000`, key = "year", value = "cases")
+```
+
 
 That is all for Chapter 12. On to the last chapter.
 
@@ -314,8 +351,74 @@ Time to [get small.](https://www.youtube.com/watch?v=GOrdzCHnpw4)
 ### 5.1: Introduction
 
 Load the necessary libraries. As usual, type the examples into and run the code chunks.
+```{r}
+library(nycflights13)
+library(tidyverse)
+```
+```{r}
+flights
+```
 
 ### 5.2: Filter rows with `filter()`
+```{r}
+filter(flights, month==1, day==1)
+```
+```{r}
+jan1 <- filter(flights, month==1, day==1)
+jan1
+```
+```{r}
+(dec25 <- filter(flights, month==12, day==25))
+```
+```{r}
+filter(flights, month=1)
+```
+
+```{r}
+sqrt(2)^2==2
+1/49*49==1
+```
+```{r}
+near(sqrt(2)^2, 2)
+near(1/49*49, 1)
+```
+```{r}
+filter(flights, month==11|month==12)
+```
+```{r}
+nov_dec <- filter(flights, month %in% c(11,12))
+nov_dec
+```
+```{r}
+filter(flights, !(arr_delay>120 | dep_delay>120))
+filter(flights, arr_delay<=120, dep_delay<=120)
+```
+```{r}
+NA>5
+10==NA
+NA+10
+NA/2
+```
+```{r}
+NA==NA
+```
+```{r}
+x <- NA
+y <- NA
+x==y
+```
+```{r}
+is.na(x)
+```
+```{r}
+df <- tibble(x=c(1, NA, 3))
+filter(df, x>1)
+filter(df, is.na(x) |x>1)
+```
+
+
+
+
 
 Study Figure 5.1 carefully. Once you learn the `&`, `|`, and `!` logic, you will find them to be very powerful tools.
 
@@ -323,6 +426,10 @@ Study Figure 5.1 carefully. Once you learn the `&`, `|`, and `!` logic, you will
 #### 5.2 Questions
 
 **1.1:** Find all flights with a delay of 2 hours or more.
+```{r}
+
+```
+
 
 
 **1.2:** Flew to Houston (IAH or HOU)
