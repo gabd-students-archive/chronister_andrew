@@ -104,6 +104,28 @@ darters <- read_fwf(file.path(file_path,"darter.txt"), fwf_positions(start_pos, 
 darters
 
 ```
+#make riffles a factor, using the hint, or trying to anyways.
+```{r}
+darters_riffle <- factor(darters$riffle, levels=c("1","2"), ordered = FALSE)
+darters_riffle
+```
+#make major type an ordered factor
+```{r}
+darters_major_type <- factor(darters$majtype, levels = c("s", "fg", "sg", "lg", "c"), ordered = TRUE)
+darters_major_type
+```
+#Pipe functions, eliminate the zonale and tetrazonum...
+```{r}
+darters %>%
+  filter(!species %in% c("zonale", "tetrazonum")) %>%
+  subset(select=-c(mintype, minsub)) %>%
+  rename(major_substrate = majsub) %>%
+  rename(major_type = majtype) %>%
+  arrange(`specimen id`)
+  
+```
+
+
 
 
 
