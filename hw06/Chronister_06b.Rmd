@@ -178,5 +178,25 @@ ggplot(data = darters_species_means, mapping = aes(x=length, y=species))+
   facet_wrap(~ riffle, nrow=2)+
   labs(y=NULL, x="Length (cm)")
 ```
+####Stress and corticosterones in birds
+
+```{r}
+library(tidyverse)
+library(smatr)
+```
+
+```{r}
+file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data/"
+names <- c("capture_date", "day", "site", "urban_score", "cortF", "cortB", "sex", "smi", "tarsus", "mass", "basal_cort", "stress_cort")
+feathers <- read_csv(file.path(file_path, "feathers.csv"), locale = locale(decimal_mark = ","), skip = 1, col_names = names)
+feathers
+```
+#the data is tidy. Each column is a variable, each row is an observation, and each cell is a value.
+
+#convert decimal mark, change column names done above
+
+##Wrangle data
+
+
 
 
