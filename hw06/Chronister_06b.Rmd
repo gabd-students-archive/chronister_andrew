@@ -1,0 +1,22 @@
+---
+title: "HW 06 Part 2: Wrangling II"
+author: "Andrew Chronister"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+#Load tidyverse and knitr libraries
+```{r}
+library(tidyverse)
+library(knitr)
+install.packages("smatr")
+library(smatr)
+```
+#defining variable
+```{r}
+file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data/"
+```
+
+
