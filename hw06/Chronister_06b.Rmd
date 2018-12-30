@@ -32,5 +32,39 @@ darters2 <- darters %>%
   filter(!species %in% c("tetrazonum", "zonale"))
 darters2
 ```
+#Wrangle data
+```{r}
+  mutate(darters2,
+       total_substrate = majsub + minsub
+       )
+```
+#My calculations show that total_substrate = 1 for all observations.  
+
+```{r}
+mutate(darters2,
+       total_substrate = majsub + minsub
+       )
+
+```
+#Change riffle values
+```{r}
+  mutate(darters2,
+         riffle = ifelse(riffle == 1,
+                         "Riffle 1",
+                         "Riffle 2"))
+```
+#Change length data from cm to mm
+```{r}
+  mutate(darters2,
+         length = length * 10)
+```
+#Change sex values
+```{r}
+  mutate(darters2,
+         sex = ifelse(sex == "f",
+                      "Female",
+                      "Male"))
+```
+#Summarize data
 
 
