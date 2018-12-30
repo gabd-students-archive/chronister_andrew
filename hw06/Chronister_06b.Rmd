@@ -66,5 +66,38 @@ mutate(darters2,
                       "Male"))
 ```
 #Summarize data
+```{r}
+darters_species_means <- darters2 %>%
+  group_by(species, riffle) %>%
+  summarize(length = mean(length, na.rm = TRUE),
+            depth = mean(depth, na.rm = TRUE),
+            velocity = mean(velocity, na.rm = TRUE)
+            )
+darters_species_means
+```
+#Plot 1
+```{r}
+ggplot(data = darters_species_means) +
+  stat_summary(mapping = aes(x=species, y=length),
+               fun.ymin = min,
+               fun.ymax = max,
+               fun.y = median
+               ) +
+  geom_point(data = darters_species_means, mapping = aes(x=species, y=length), shape = 15)
+  
+```
+#Turn plot, add facetwrap and labs
+```{r}
+ggplot(data = darters_species_means) +
+  stat_summary(mapping = aes(x=species, y=length),
+               fun.ymin = min,
+               fun.ymax = max,
+               fun.y = median
+               ) +
+  geom_point(data = darters_species_means, mapping = aes(x=species, y=length), shape = 15)+
+  coord_flip() +
+  facet_wrap(~riffle, nrow = 2)+
+  labs(x=NULL, y="Length (cm)")
+```
 
 
