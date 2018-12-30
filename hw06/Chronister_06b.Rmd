@@ -14,9 +14,23 @@ library(knitr)
 install.packages("smatr")
 library(smatr)
 ```
-#defining variable
+#defining path variable
 ```{r}
 file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data/"
+```
+#Read in darters.txt
+```{r}
+start_pos <-  c(1,4,15,16,17,18,21,25,29,33,36,39,41)
+stop_pos <- c(3,14,15,16,17,20,24,28,32,35,38,40,42)
+names <- c("specimen id", "species", "riffle", "age", "sex", "length", "depth", "velocity", "temperature", "majsub", "minsub", "majtype", "mintype")
+darters <- read_fwf(file.path(file_path, "darter.txt"), fwf_positions(start_pos, stop_pos, col_names = names), skip = 13)
+darters
+```
+#remove tetrazonum and zonale
+```{r}
+darters2 <- darters %>%
+  filter(!species %in% c("tetrazonum", "zonale"))
+darters2
 ```
 
 
