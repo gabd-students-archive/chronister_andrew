@@ -18,14 +18,78 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Chapter 5: Data transformation
 
 Read [R4ds Chapter 5: Data transformation](https://r4ds.had.co.nz/transform.html), sections 5-7.
+#setup
+```{r}
+library(tidyverse)
+library(nycflights13)
+
+```
 
 You do not answer any of the questions this week. Just read and run all of the examples.
 
 ### Section 5.5: Add new variables with `mutate()`
 
 Type and run all of the examples.
+```{r}
+flights_sml <- select(flights,
+                      year:day,
+                      ends_with("delay"),
+                      distance,
+                      air_time
+                      )
+mutate(flights_sml,
+       gain = dep_delay - arr_delay,
+       speed = distance / air_time * 60
+       )
+```
+#This could have come in useful with a question in the last assignment. I was struggling with how to do just this!  :D
+```{r}
+mutate(flights_sml,
+       gain = dep_delay - arr_delay,
+       hours = air_time / 60,
+       gain_per_hour = gain / hours
+       )
+```
+
+```{r}
+transmute(flights,
+          gain = dep_delay - arr_delay,
+          hours = air_time / 60,
+          gain_per_hour = gain / hours
+          )
+```
 
 Pay careful attention to the useful creation functions in section 5.5.1. 
+```{r}
+transmute(flights,
+          dep_time,
+          hour = dep_time %/% 100,
+          minute = dep_time %% 100
+          )
+```
+```{r}
+(x <- 1:10)
+lag(x)
+lead(x)
+```
+```{r}
+x
+cumsum(x)
+cummean(x)
+```
+```{r}
+y <- c(1,2,2,NA,3,4)
+min_rank(y)
+min_rank(desc(y))
+```
+
+```{r}
+row_number(y)
+dense_rank(y)
+percent_rank(y)
+cume_dist(y)
+```
+
 
 ### Section 5.6: Grouped summaries with `summarise()`
 
