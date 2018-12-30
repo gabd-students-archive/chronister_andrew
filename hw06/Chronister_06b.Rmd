@@ -86,7 +86,7 @@ ggplot(data = darters_species_means) +
   geom_point(data = darters_species_means, mapping = aes(x=species, y=length), shape = 15)
   
 ```
-#Turn plot, add facetwrap and labs
+#Turn plot
 ```{r}
 ggplot(data = darters_species_means) +
   stat_summary(mapping = aes(x=species, y=length),
@@ -95,9 +95,88 @@ ggplot(data = darters_species_means) +
                fun.y = median
                ) +
   geom_point(data = darters_species_means, mapping = aes(x=species, y=length), shape = 15)+
-  coord_flip() +
-  facet_wrap(~riffle, nrow = 2)+
-  labs(x=NULL, y="Length (cm)")
+  coord_flip() 
+  
+```
+#Add Facet wrap
+```{r}
+ggplot(data = darters_species_means) +
+  stat_summary(mapping = aes(x=species, y=length),
+               fun.ymin = min,
+               fun.ymax = max,
+               fun.y = median
+               ) +
+  geom_point(data = darters_species_means, mapping = aes(x=species, y=length), shape = 15)+
+  coord_flip()+
+  facet_wrap(~ riffle, nrow = 2)
+```
+#Change labels
+```{r}
+ggplot(data = darters_species_means) +
+  stat_summary(mapping = aes(x=species, y=length),
+               fun.ymin = min,
+               fun.ymax = max,
+               fun.y = median
+               ) +
+  geom_point(data = darters_species_means, mapping = aes(x=species, y=length), shape = 15)+
+  coord_flip()+
+  facet_wrap(~ riffle, nrow = 2)+
+  labs(x = NULL, y = "Length (cm)")
+```
+
+
+#The mean size of of the spectabile and caeruleum species are significantly larger in riffle 1 than riffle 2. the blennioides species is the opposite, with modestly larger size in riffle 1 vs. riffle 2.
+
+# Plot2
+#initial plot
+```{r}
+ggplot(data = darters_species_means, mapping = aes(x=length, y=species))+
+  geom_point(color = "grey60")
+```
+#add stat_summary
+```{r}
+ggplot(data=darters_species_means, mapping = aes(x=length, y=species))+
+  stat_summary(mapping = aes(x=length, y=species),
+               fun.y = median,
+               geom = "point",
+               size = 2.2
+               )+
+  geom_point(color="grey60")
+```
+#add second stat_summary
+```{r}
+ggplot(data = darters_species_means, mapping = aes(x=length, y=species))+
+  stat_summary(mapping = aes(x=length, y=species),
+               fun.y = median,
+               geom = "point",
+               size=2.2
+               )+
+  geom_point(color="grey60")+
+  stat_summary(mapping = aes(x=length, y=species),
+               fun.y = mean,
+               geom = "point",
+               size=3,
+               color = "maroon"
+               )
+```
+#flip, facet, label
+```{r}
+ggplot(data = darters_species_means, mapping = aes(x=length, y=species))+
+  stat_summary(mapping = aes(x=length, y=species),
+               fun.y = median,
+               geom = "point",
+               size=2.2
+               )+
+  geom_point(color="grey60")+
+  stat_summary(mapping = aes(x=length, y=species),
+               fun.y = mean,
+               geom = "point",
+               size=3,
+               color = "maroon"
+               )+
+  coord_flip()+
+  facet_wrap(~ riffle, nrow=2)+
+  labs(y=NULL, x="Length (cm)")
 ```
 
 
