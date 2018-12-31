@@ -229,15 +229,73 @@ b
 ```
 #put it all together to figure out SMI
 ```{r}
-mutate(feathers2,
+feathers3 <- mutate(feathers2,
        new_smi = mass * (mean_tarsus / tarsus)^b)
+feathers3
+```
+#smi and new_smi are very similar. now on to summarize...
+```{r}
+site_data <- feathers2 %>%
+  group_by(site)%>%
+  summarize(basal_cort_mean = mean(basal_cort, na.rm = TRUE),
+            basal_cort_sde = sd(basal_cort, na.rm = TRUE)/sqrt(43),
+            stress_cort_mean = mean(stress_cort, na.rm = TRUE),
+            stress_cort_sde = sd(stress_cort, na.rm = TRUE)/sqrt(43) 
+  )
+site_data
+```
+#I'm afraid that the values for the standard deviation error are incorrect because of the NA values.  Gonna run this again, a little differently.
 
+```{r}
+sum(is.na(feathers2$basal_cort))
+sum(is.na(feathers2$stress_cort))
+```
+#Unless I'm overthinking it, the values for the sqrt should be "33" and "40" accordingly. That's what I'm gonna do... even if it is wrong. :D Or I could have removed the NA values when tidying the data... that would have been smart.  
+
+```{r}
+site_data <- feathers2 %>%
+  group_by(site) %>%
+  summarize(basal_cort_mean = mean(basal_cort, na.rm = TRUE),
+            basal_cort_sde = sd(basal_cort, na.rm =TRUE)/sqrt(33),
+            stress_cort_mean = mean(stress_cort, na.rm = TRUE),
+            stress_cort_sde =sd(stress_cort, na.rm = TRUE)/sqrt(40)
+            )
+site_data
+```
+##Make a boxplot of new_smi
+```{r}
+  ggplot(data = feathers3, mapping = aes(x=site, y=new_smi)) +
+  geom_boxplot()
+```
+#the scaled mass index for site NIORT has a huge variation between the max and min as shown by the whiskers of the boxplot.  Also, the villefollet site has lower values than the rest of the locations.
+
+##Plot 2
+```{r}
+basal_cort_mean  <-  mean(feathers2$basal_cort, na.rm = TRUE)
+basal_cort_sde  <-  sd(feathers2$basal_cort, na.rm =TRUE)/sqrt(33)
+basal_min <- basal_cort_mean - basal_cort_sde
+basal_max <- basal_cort_mean + basal_cort_sde
+
+ggplot(data=feathers2, mapping = aes(x=site, y=basal_cort))+
+  geom_point()+
+  geom_errorbar(ymin = basal_min,
+                ymax = basal_max)
 
 
   
-
-
 ```
-#smi and new_smi are very similar. now on to summarize...
+#repeat the plot without tie fighters
+
+```{r}
+stress_cort_mean <- mean(feathers2$stress_cort, na.rm = TRUE)
+stress_cort_sde  <- sd(feathers2$stress_cort, na.rm = TRUE)/sqrt(40)
+stress_min <- stress_cort_mean - stress_cort_sde
+stress_max <- stress_cort_mean + stress_cort_sde
+
+ggplot(data = feathers2, mapping = aes(x=site, y=stress_cort))+
+  geom_point()+
+  geom_linerange(ymin = stress_min,
+                 ymax = stress_max)
+```
 
 
