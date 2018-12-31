@@ -298,4 +298,48 @@ ggplot(data = feathers2, mapping = aes(x=site, y=stress_cort))+
                  ymax = stress_max)
 ```
 
+####Grad Student Extras...
+#use size 3 point located at the mean
+```{r}
+ggplot(data = feathers2, mapping = aes(x=site, y=stress_cort))+
+  geom_point()+
+  geom_point(mapping = aes(x=site, y=stress_cort_mean), size = 3)+
+  geom_linerange(ymin = stress_min,
+                 ymax = stress_max)
+```
+
+#Make it maroon
+```{r}
+ggplot(data=feathers2, mapping=aes(x=site, y=stress_cort))+
+  geom_point()+
+  geom_point(mapping = aes(x=site, y=stress_cort_mean), size = 3, color = "maroon")+
+  geom_linerange(ymin = stress_min,
+                 ymax = stress_max)
+```
+#Place error bars behind points, also changed size and alpha of linerange for viewability
+
+```{r}
+ggplot(data = feathers2, mapping = aes(x=site, y=stress_cort))+
+  geom_linerange(alpha = 1/30,
+                 ymin = stress_min,
+                 ymax=stress_max,
+                 size=2,
+                 )+
+  geom_point()+
+  geom_point(mapping = aes(x=site, y=stress_cort_mean), size = 3, color = "maroon")
+```
+#Make the TIE fighters look more like TIE fighters!
+```{r}
+ggplot(data=feathers2, mapping = aes(x=site, y=stress_cort))+
+  geom_errorbar(alpha = 1/40,
+                ymin = stress_min,
+                ymax = stress_max,
+                size = 1/2)+
+  geom_point()+
+  geom_point(mapping = aes(x=site, y=stress_cort_mean), size=3, color="maroon")
+```
+
+
+
+
 
