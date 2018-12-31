@@ -196,7 +196,48 @@ feathers
 #convert decimal mark, change column names done above
 
 ##Wrangle data
+#calculate mean tarsus
+```{r}
+mean_tarsus <- mean(feathers[["tarsus"]])
+mean_tarsus
+```
+#use mutate to transform
+```{r}
+feathers2 <- mutate(feathers,
+       log_mass = log(mass),
+       log_tarsus = log(tarsus)
+       )
+feathers2
+
+```
+#Run function
+```{r}
+major_axis <- sma(log_mass ~ log_tarsus, data = feathers2)
+major_axis
+```
+#Note, I have no idea what those numbers mean.  Wow... just wow.  :D
+
+#Apply the summary function
+```{r}
+summary(major_axis)
+```
+#Apply the coef function
+```{r}
+coef(major_axis)
+b <- 1.864889
+b
+```
+#put it all together to figure out SMI
+```{r}
+mutate(feathers2,
+       new_smi = mass * (mean_tarsus / tarsus)^b)
 
 
+
+  
+
+
+```
+#smi and new_smi are very similar. now on to summarize...
 
 
