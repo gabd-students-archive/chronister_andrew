@@ -157,4 +157,40 @@ p_culmen + p_nalospi + p_wt + p_wingcrd + p_tarsus + p_head + plot_layout(ncol =
 ```
 #It looks like there is one possible outlier in nalospi, one in wingcrd, one in tarsus and two in head. All of these would need further consideration, just like the wingcrd example, to determine if the value is practical or an error. 
 
+####Figure 5
+#First code block to re-create the histogram
+```{r}
+h1 <- sparrows %>%
+  filter(Month %in% 6:8) %>%
+  ggplot() +
+  geom_histogram(aes(x = wt),
+                 binwidth = 0.5,
+                 boundary = 0,
+                 closed = "right",
+                 color = "black") +
+  scale_x_continuous(breaks = seq(14,28,by = 2))
+h1
+```
+#Filter all but June, July and August, etc.
+```{r}
+h2 <- sparrows %>%
+  filter(Month %in% 6:8) %>%
+  mutate(Month = case_when(
+    Month == 6 ~ "June",
+    Month == 7 ~ "July",
+    Month == 8 ~ "August")) %>%
+  ggplot() +
+  geom_histogram(aes(x = wt),
+                 binwidth = 0.5,
+                 boundary = 0,
+                 color = "black") +
+  scale_x_continuous(breaks = seq(14,28,by = 2)) +
+  facet_wrap(~Month, ncol = 1)
+h2
+```
+#Now assemble into one figure.
+```{r}
+h1 + h2
+```
+
 
