@@ -27,7 +27,33 @@ sparrows <- sparrows_raw %>%
          row_order = 1:nrow(.))
 View(sparrows)
 ```
-
+#Figure 2: Outliers 
+```{r}
+plot_box <- sparrows %>%
+  ggplot(aes(x = box_group,
+             y = wingcrd))+
+  geom_boxplot(width = 0.25)+
+  labs(x = NULL,
+       y = "Wing length (mm)")
+```
+#Create Cleveland plot
+```{r}
+plot_cleveland <- sparrows %>%
+  ggplot(aes(x = wingcrd,
+             y = row_order))+
+  geom_point()+
+  labs(x = "Wing length (mm)",
+       y = "Order of the data")
+```
+#Store plots into variables...
+#Plot both plots side by side.
+```{r}
+plot_box + plot_cleveland
+```
+#Add Coordinate Flip so scales line up
+```{r}
+plot_box + plot_cleveland + coord_flip()
+```
 
 
 
