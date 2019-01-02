@@ -10,17 +10,24 @@ editor_options:
 
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
-install.packages(GGally)
-install.packages("devtools")
-```
-```{r}
-devtools::install_github("thomasp85/patchwork")
-```
-```{r}
-install.packages("GGally")
 library(GGally)
 library(patchwork)
 ```
+
+#Setting the data filepath
+```{r}
+file_path <-"~/Documents/BI685Files/GitHubDocs/chronister_andrew/data"
+sparrows_raw <- read_tsv(file.path(file_path, "sparrows.txt"))
+View(sparrows_raw)
+sparrows_raw
+```
+```{r}
+sparrows <- sparrows_raw %>%
+  mutate(box_group = "Sparrows",
+         row_order = 1:nrow(.))
+View(sparrows)
+```
+
 
 
 
