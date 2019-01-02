@@ -1,0 +1,26 @@
+---
+title: "HW 07 Part 1: Data Visualization"
+author: "Andrew Chronister"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+```{r}
+
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+install.packages(GGally)
+install.packages("devtools")
+```
+```{r}
+devtools::install_github("thomasp85/patchwork")
+```
+```{r}
+install.packages("GGally")
+library(GGally)
+library(patchwork)
+```
+
+
+
