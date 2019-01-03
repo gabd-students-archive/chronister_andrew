@@ -398,5 +398,23 @@ hdp3
 ```{r}
 ha1 + hdp1 + ha2 + hdp2 + ha3 + hdp3 + plot_layout(ncol=2, nrow = 3)
 ```
+#ggpairs plot... see what happens.
+```{r}
+aegla %>% ggpairs
+```
+#Wow. That is a huge table. I'm going to use ggscatmat for a different view.
+```{r}
+aegla %>% ggscatmat()
+```
+#I'd say there are too many variables going on to be useful.  But if we pare it down a bit...
+```{r}
+aegla %>% ggpairs(columns = 1:6)
+```
+#This makes a lot more sense.  TDS and Conductivity have a strong correlation, which makes sense with solids desoved in the water, pH and TDS have a pretty good correlation which also makes sense.  I'll try with the other variables. 
+
+```{r}
+aegla %>% ggpairs(columns = 7:13)
+```
+
 
 
