@@ -344,6 +344,59 @@ ggplot(aegla, aes(x=row_order, y=Phos))+
 
 #Plot four variables with a Cleveland plot. It just so happened that I made plots for all of the variables... 
 ```{r}
-p_width + p_depth + p_ph + p_crab + plot_layout(nrow = 2, ncol = 2)
+p_width + p_depth + p_cond + p_crab + plot_layout(nrow = 2, ncol = 2)
 ```
+#Make three histograms
+```{r}
+ha1 <- ggplot(data = aegla)+
+  geom_histogram(aes(x = N),
+                 binwidth = .0025,
+                 boundary = 0,
+                 closed = "right",
+                 color = "black")
+ha1
+
+
+
+```
+```{r}
+ha2 <- ggplot(data = aegla)+
+  geom_histogram(aes(x=Phos),
+                 binwidth = .005,
+                 boundary = 0,
+                 closed = "right",
+                 color = "blue")
+ha2
+```
+```{r}
+ha3 <-  ggplot(aegla)+
+  geom_histogram(aes(x=pH),
+                 binwidth = .005,
+                 boundary = 0,
+                 closed = "right",
+                 color = "red")
+ha3
+```
+#Create density plots
+```{r}
+hdp1 <- ggplot(aegla)+
+  geom_density(aes(x=N))
+hdp1
+
+```
+```{r}
+hdp2 <- ggplot(aegla)+
+  geom_density(aes(x=Phos))
+hdp2
+```
+```{r}
+hdp3 <- ggplot(aegla)+
+  geom_density(aes(x=pH))
+hdp3
+```
+#Use patchwork to produce 2 col matrix
+```{r}
+ha1 + hdp1 + ha2 + hdp2 + ha3 + hdp3 + plot_layout(ncol=2, nrow = 3)
+```
+
 
