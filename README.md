@@ -9,10 +9,10 @@ The fish slapping dance is a **hilarious** clip from the British comedy troupe *
 
 ---
 
-### Among my favorite British brands are:
-     *Smithwicks
-     *Youngs
-     *Fullers
+### Among my favorite British beer brands are:
+     Smithwicks
+     Youngs
+     Fullers
      
 ---
 
