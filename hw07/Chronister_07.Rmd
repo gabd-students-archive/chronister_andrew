@@ -247,5 +247,103 @@ sparrows %>%
   geom_smooth(method = lm, se = FALSE)+
   facet_grid(Sex ~ Month)
 ```
+#### Part 2:Aegla Crab-fest 
+#import the raw data
+```{r}
+aegla_raw <- read_csv(file.path(file_path, "aegla_crabs.csv"))
+aegla_raw
+```
+#Select to remove certain columns
+```{r}
+aegla_select <- select(aegla_raw, -Site, -AT, -WT, -Shrimp, -Aeglam, -AeglaFe, -AeglaFo)
+aegla_select
+```
+#Use drop_na to drop row with NAs
+```{r}
+aegla_dropna <- aegla_select %>%
+  drop_na(4:12)
+aegla_dropna
+```
+#Create the row_order dummy variable
+```{r}
+aegla_clean <- aegla_dropna %>%
+  mutate(box_group = "Crabs",
+         row_order = 1:nrow(.))
+aegla_clean
+```
+#Trying the more efficient pipe method.
+```{r}
+aegla <- aegla_raw %>%
+  select(-c("Site", "AT", "WT", "Shrimp", "Aeglam", "AeglaFe", "AeglaFo"))%>%
+  drop_na(c("N"))%>%
+  mutate(box_group = "Crabs",
+         row_order = 1:nrow(.))
+aegla
+```
+#Explore the data
+```{r}
+p_width <- aegla %>%
+  ggplot(aes(x=row_order))+
+  geom_point(aes(y=Width))
+p_depth <- aegla %>%
+  ggplot(aes(x=row_order))+
+  geom_point(aes(y=Depth))
+p_flow <- aegla %>%
+  ggplot(aes(x=row_order))+
+  geom_point(aes(y=Flow))
+p_ph <- aegla %>%
+  ggplot(aes(x=row_order))+
+  geom_point(aes(y=pH))
+p_tds <- aegla %>%
+  ggplot(aes(x=row_order))+
+  geom_point(aes(y=TDS))
+p_cond<- aegla %>%
+  ggplot(aes(x=row_order))+
+  geom_point(aes(y=Cond))
+p_n <- aegla %>%
+  ggplot(aes(x=row_order))+
+  geom_point(aes(y=N))
+p_ni <- aegla %>%
+  ggplot(aes(x=row_order))+
+  geom_point(aes(y=Ni))
+p_nt <- aegla %>%
+  ggplot(aes(x=row_order))+
+  geom_point(aes(y=Nt))
+p_phos <- aegla %>%
+  ggplot(aes(x=row_order))+
+  geom_point(aes(y=Phos))
+p_mg <- aegla %>%
+  ggplot(aes(x=row_order))+
+  geom_point(aes(y=Mg))
+p_ca <- aegla %>%
+  ggplot(aes(x=row_order))+
+  geom_point(aes(y=Ca))
+p_crab <- aegla %>%
+  ggplot(aes(x=row_order))+
+  geom_point(aes(y=Crab))
+p_width + p_depth + p_flow 
 
+```
+
+```{r}
+p_ph + p_tds + p_cond  
+```
+```{r}
+p_n + p_ni + p_nt 
+```
+
+```{r}
+p_phos + p_mg + p_ca + p_crab
+```
+```{r}
+ggplot(aegla, aes(x=row_order, y=Phos))+
+  geom_boxplot()+
+  geom_point()
+```
+#The outliers I found are sample 1, where the Phosphate levels are almost 4 times higher than the next highest value, sample 14 has low pH at 6.25, with the next lowest measurement being 6.75 and 0 waterflow, and sample 22 was taken at a width of 12.5 (meters?) and a depth of 5 meters.  The width measurement is not much of an outlier, but the depth measurement is twice as deep as the next highest value.  I would contend that the real outlier is the phosphate level in sample 1.  
+
+#Plot four variables with a Cleveland plot. It just so happened that I made plots for all of the variables... 
+```{r}
+p_width + p_depth + p_ph + p_crab + plot_layout(nrow = 2, ncol = 2)
+```
 
