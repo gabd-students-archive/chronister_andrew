@@ -42,9 +42,9 @@ data("lynx")
 data("lynx")
 year <- c(1821:1934)
 pelts <- as.vector(lynx)
-lynx_pelts <- data_frame(year, pelts)
+lynx_pelts <- data.frame(year, pelts)
 ggplot(data = lynx_pelts)+
-  geom_line(mapping = aes(x=year, y=pelts, color="maroon"))
+  geom_line(mapping = aes(x=year, y=pelts), color="maroon")
 ```
 #Interesting representation.  It appears that the population of lynxes crashes multiple times, in a cyclical way.  I wonder if over hunting causes the crashes, then it takes several years for the population to recover, or if there were some hunting restrictions in place.  Although, given the dates, 1800s through early 1900s, I would think there were few to no restrictions.
 
@@ -52,7 +52,7 @@ ggplot(data = lynx_pelts)+
 ```{r}
 data(iris)
 ?iris
-ggplot(data = iris, mapping = aes(x=Petal.Length, y=Petal.Width, size=2))+
+ggplot(data = iris, mapping = aes(x=Petal.Length, y=Petal.Width), size=2)+
   geom_point(mapping=aes(color=Species, shape=Species))+
   xlab("Petal Length")+
   ylab("Petal Width")
