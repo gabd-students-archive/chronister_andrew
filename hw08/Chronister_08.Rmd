@@ -14,4 +14,83 @@ library(tidyverse)
 library(lubridate)
 ```
 
+***
+### Part 1: Play date
+#setting the variables/values
+```{r}
+birth_date <- "08/23/1968"
+
+# Elizabeth Garret Anderson was the first female physician
+anderson <- "9 June 1836"
+
+# Mary Anning discovered the first complete Plesiosaur fossil, 
+# and other important Jurassic fossils
+anning <-  "1799/05/21"
+
+# Alice Augusta Ball was a chemist who developed the
+# first injectable treatment for leprosy.
+ball <- "July 24, 1892"
+
+# Sylvia Earle was the first chieft scientist at NOAA
+earle <- "August, 30 (1935)"
+
+# Rosalind Franklin used x-ray diffraction to 
+# discover DNA structure. Watson and Crick claimed credit.
+franklin <- "25th of July, 1920"
+
+# Ester Lederberg was the first to discover that viruses 
+# infect bacteria. Led to discovery of lambda bacteriophage
+lederberg <- "December 18, 1922"
+
+# Barbara McClintock discovered transposable elements (jumping genes),
+# and developed staining techniques to study chromosomes
+mcclintock <- "16061902"
+
+# Martin Luther King's birthday is coming up. Let's remember a dream
+mlk_birth <- "1/15/29"
+mlk_dream <- "1963 August 08"
+```
+#1. Convert to POSIXct format using lubridate functions.
+```{r}
+chronister <- mdy(birth_date)
+anderson <- dmy(anderson)
+anning <- ymd(anning)
+ball <- mdy(ball)
+earle <- mdy(earle)
+franklin <- dmy(franklin)
+lederberg <- mdy(lederberg)
+mcclintock <- dmy(mcclintock)
+mlk_birth <- mdy(mlk_birth)
+mlk_dream <- ymd(mlk_dream)
+chronister
+anderson
+anning
+ball
+earle
+franklin
+lederberg
+mcclintock
+mlk_birth
+mlk_dream
+
+```
+#2. Check the dates to make sure they are correct.  
+#All the dates appear to be good, except MLK's birthday, which shows up as 2029 because of the 1968 rule.I believe I can fix it.
+```{r}
+mlk_birth <- update(mlk_birth, year = 1929)
+mlk_birth
+```
+#That looks more like it.  The mlk_birth variable has been updated to reflect the correct birth year.  Good thing I'm not 8 months older or I would have to modify my birth year as well.
+
+#3. What day of the week was I born on?
+```{r}
+wday(chronister, label = TRUE, abbr = FALSE)
+```
+#It looks like I was born on a Friday.  
+
+#4. What day of the week will birthday be this year?
+
+```{r}
+
+```
 

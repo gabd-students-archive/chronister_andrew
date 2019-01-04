@@ -1776,9 +1776,158 @@ library(lubridate)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<hr />
+<div id="part-1-play-date" class="section level3">
+<h3>Part 1: Play date</h3>
+<p>#setting the variables/values</p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYmlydGhfZGF0ZSA8LSBcIjA4LzIzLzE5NjhcIlxuXG4jIEVsaXphYmV0aCBHYXJyZXQgQW5kZXJzb24gd2FzIHRoZSBmaXJzdCBmZW1hbGUgcGh5c2ljaWFuXG5hbmRlcnNvbiA8LSBcIjkgSnVuZSAxODM2XCJcblxuIyBNYXJ5IEFubmluZyBkaXNjb3ZlcmVkIHRoZSBmaXJzdCBjb21wbGV0ZSBQbGVzaW9zYXVyIGZvc3NpbCwgXG4jIGFuZCBvdGhlciBpbXBvcnRhbnQgSnVyYXNzaWMgZm9zc2lsc1xuYW5uaW5nIDwtICBcIjE3OTkvMDUvMjFcIlxuXG4jIEFsaWNlIEF1Z3VzdGEgQmFsbCB3YXMgYSBjaGVtaXN0IHdobyBkZXZlbG9wZWQgdGhlXG4jIGZpcnN0IGluamVjdGFibGUgdHJlYXRtZW50IGZvciBsZXByb3N5LlxuYmFsbCA8LSBcIkp1bHkgMjQsIDE4OTJcIlxuXG4jIFN5bHZpYSBFYXJsZSB3YXMgdGhlIGZpcnN0IGNoaWVmdCBzY2llbnRpc3QgYXQgTk9BQVxuZWFybGUgPC0gXCJBdWd1c3QsIDMwICgxOTM1KVwiXG5cbiMgUm9zYWxpbmQgRnJhbmtsaW4gdXNlZCB4LXJheSBkaWZmcmFjdGlvbiB0byBcbiMgZGlzY292ZXIgRE5BIHN0cnVjdHVyZS4gV2F0c29uIGFuZCBDcmljayBjbGFpbWVkIGNyZWRpdC5cbmZyYW5rbGluIDwtIFwiMjV0aCBvZiBKdWx5LCAxOTIwXCJcblxuIyBFc3RlciBMZWRlcmJlcmcgd2FzIHRoZSBmaXJzdCB0byBkaXNjb3ZlciB0aGF0IHZpcnVzZXMgXG4jIGluZmVjdCBiYWN0ZXJpYS4gTGVkIHRvIGRpc2NvdmVyeSBvZiBsYW1iZGEgYmFjdGVyaW9waGFnZVxubGVkZXJiZXJnIDwtIFwiRGVjZW1iZXIgMTgsIDE5MjJcIlxuXG4jIEJhcmJhcmEgTWNDbGludG9jayBkaXNjb3ZlcmVkIHRyYW5zcG9zYWJsZSBlbGVtZW50cyAoanVtcGluZyBnZW5lcyksXG4jIGFuZCBkZXZlbG9wZWQgc3RhaW5pbmcgdGVjaG5pcXVlcyB0byBzdHVkeSBjaHJvbW9zb21lc1xubWNjbGludG9jayA8LSBcIjE2MDYxOTAyXCJcblxuIyBNYXJ0aW4gTHV0aGVyIEtpbmcncyBiaXJ0aGRheSBpcyBjb21pbmcgdXAuIExldCdzIHJlbWVtYmVyIGEgZHJlYW1cbm1sa19iaXJ0aCA8LSBcIjEvMTUvMjlcIlxubWxrX2RyZWFtIDwtIFwiMTk2MyBBdWd1c3QgMDhcIlxuYGBgIn0= -->
+<pre class="r"><code>birth_date &lt;- &quot;08/23/1968&quot;
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiQ2hyb25pc3Rlcl8wOC5SbWQiCmF1dGhvcjogQW5kcmV3IENocm9uaXN0ZXIiCm91dHB1dDogaHRtbF9ub3RlYm9vawpkYXRlOiAiYHIgZm9ybWF0KFN5cy50aW1lKCksICclZCAlQiAlWScpYCIKZWRpdG9yX29wdGlvbnM6IAogIGNodW5rX291dHB1dF90eXBlOiBpbmxpbmUKLS0tCgoqKioKIyMjTG9hZCB0aGUgTGlicmFyaWVzCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShsdWJyaWRhdGUpCmBgYAoKCg==</div>
+# Elizabeth Garret Anderson was the first female physician
+anderson &lt;- &quot;9 June 1836&quot;
+
+# Mary Anning discovered the first complete Plesiosaur fossil, 
+# and other important Jurassic fossils
+anning &lt;-  &quot;1799/05/21&quot;
+
+# Alice Augusta Ball was a chemist who developed the
+# first injectable treatment for leprosy.
+ball &lt;- &quot;July 24, 1892&quot;
+
+# Sylvia Earle was the first chieft scientist at NOAA
+earle &lt;- &quot;August, 30 (1935)&quot;
+
+# Rosalind Franklin used x-ray diffraction to 
+# discover DNA structure. Watson and Crick claimed credit.
+franklin &lt;- &quot;25th of July, 1920&quot;
+
+# Ester Lederberg was the first to discover that viruses 
+# infect bacteria. Led to discovery of lambda bacteriophage
+lederberg &lt;- &quot;December 18, 1922&quot;
+
+# Barbara McClintock discovered transposable elements (jumping genes),
+# and developed staining techniques to study chromosomes
+mcclintock &lt;- &quot;16061902&quot;
+
+# Martin Luther King's birthday is coming up. Let's remember a dream
+mlk_birth &lt;- &quot;1/15/29&quot;
+mlk_dream &lt;- &quot;1963 August 08&quot;</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>#1. Convert to POSIXct format using lubridate functions.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2hyb25pc3RlciA8LSBtZHkoYmlydGhfZGF0ZSlcbmFuZGVyc29uIDwtIGRteShhbmRlcnNvbilcbmFubmluZyA8LSB5bWQoYW5uaW5nKVxuYmFsbCA8LSBtZHkoYmFsbClcbmVhcmxlIDwtIG1keShlYXJsZSlcbmZyYW5rbGluIDwtIGRteShmcmFua2xpbilcbmxlZGVyYmVyZyA8LSBtZHkobGVkZXJiZXJnKVxubWNjbGludG9jayA8LSBkbXkobWNjbGludG9jaylcbm1sa19iaXJ0aCA8LSBtZHkobWxrX2JpcnRoKVxubWxrX2RyZWFtIDwtIHltZChtbGtfZHJlYW0pXG5jaHJvbmlzdGVyXG5gYGAifQ== -->
+<pre class="r"><code>chronister &lt;- mdy(birth_date)
+anderson &lt;- dmy(anderson)
+anning &lt;- ymd(anning)
+ball &lt;- mdy(ball)
+earle &lt;- mdy(earle)
+franklin &lt;- dmy(franklin)
+lederberg &lt;- mdy(lederberg)
+mcclintock &lt;- dmy(mcclintock)
+mlk_birth &lt;- mdy(mlk_birth)
+mlk_dream &lt;- ymd(mlk_dream)
+chronister</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMTk2OC0wOC0yM1wiXG4ifQ== -->
+<pre><code>[1] &quot;1968-08-23&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYW5kZXJzb25cbmBgYCJ9 -->
+<pre class="r"><code>anderson</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMTgzNi0wNi0wOVwiXG4ifQ== -->
+<pre><code>[1] &quot;1836-06-09&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYW5uaW5nXG5gYGAifQ== -->
+<pre class="r"><code>anning</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMTc5OS0wNS0yMVwiXG4ifQ== -->
+<pre><code>[1] &quot;1799-05-21&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYmFsbFxuYGBgIn0= -->
+<pre class="r"><code>ball</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMTg5Mi0wNy0yNFwiXG4ifQ== -->
+<pre><code>[1] &quot;1892-07-24&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZWFybGVcbmBgYCJ9 -->
+<pre class="r"><code>earle</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMTkzNS0wOC0zMFwiXG4ifQ== -->
+<pre><code>[1] &quot;1935-08-30&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZnJhbmtsaW5cbmBgYCJ9 -->
+<pre class="r"><code>franklin</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMTkyMC0wNy0yNVwiXG4ifQ== -->
+<pre><code>[1] &quot;1920-07-25&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVkZXJiZXJnXG5gYGAifQ== -->
+<pre class="r"><code>lederberg</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMTkyMi0xMi0xOFwiXG4ifQ== -->
+<pre><code>[1] &quot;1922-12-18&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWNjbGludG9ja1xuYGBgIn0= -->
+<pre class="r"><code>mcclintock</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMTkwMi0wNi0xNlwiXG4ifQ== -->
+<pre><code>[1] &quot;1902-06-16&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWxrX2JpcnRoXG5gYGAifQ== -->
+<pre class="r"><code>mlk_birth</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAyOS0wMS0xNVwiXG4ifQ== -->
+<pre><code>[1] &quot;2029-01-15&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWxrX2RyZWFtXG5gYGAifQ== -->
+<pre class="r"><code>mlk_dream</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMTk2My0wOC0wOFwiXG4ifQ== -->
+<pre><code>[1] &quot;1963-08-08&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>#2. Check the dates to make sure they are correct.<br />
+#All the dates appear to be good, except MLK’s birthday, which shows up as 2029 because of the 1968 rule.I believe I can fix it.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWxrX2JpcnRoIDwtIHVwZGF0ZShtbGtfYmlydGgsIHllYXIgPSAxOTI5KVxubWxrX2JpcnRoXG5gYGAifQ== -->
+<pre class="r"><code>mlk_birth &lt;- update(mlk_birth, year = 1929)
+mlk_birth</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMTkyOS0wMS0xNVwiXG4ifQ== -->
+<pre><code>[1] &quot;1929-01-15&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>#That looks more like it. The mlk_birth variable has been updated to reflect the correct birth year. Good thing I’m not 8 months older or I would have to modify my birth year as well.</p>
+<p>#3. What day of the week was I born on?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2RheShjaHJvbmlzdGVyLCBsYWJlbCA9IFRSVUUsIGFiYnIgPSBGQUxTRSlcbmBgYCJ9 -->
+<pre class="r"><code>wday(chronister, label = TRUE, abbr = FALSE)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIEZyaWRheVxuTGV2ZWxzOiBTdW5kYXkgPCBNb25kYXkgPCBUdWVzZGF5IDwgV2VkbmVzZGF5IDwgVGh1cnNkYXkgPCBGcmlkYXkgPCBTYXR1cmRheVxuIn0= -->
+<pre><code>[1] Friday
+Levels: Sunday &lt; Monday &lt; Tuesday &lt; Wednesday &lt; Thursday &lt; Friday &lt; Saturday</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>#It looks like I was born on a Friday.</p>
+<p>#4. What day of the week will birthday be this year?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiQ2hyb25pc3Rlcl8wOC5SbWQiCmF1dGhvcjogQW5kcmV3IENocm9uaXN0ZXIiCm91dHB1dDogaHRtbF9ub3RlYm9vawpkYXRlOiAiYHIgZm9ybWF0KFN5cy50aW1lKCksICclZCAlQiAlWScpYCIKZWRpdG9yX29wdGlvbnM6IAogIGNodW5rX291dHB1dF90eXBlOiBpbmxpbmUKLS0tCgoqKioKIyMjTG9hZCB0aGUgTGlicmFyaWVzCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShsdWJyaWRhdGUpCmBgYAoKKioqCiMjIyBQYXJ0IDE6IFBsYXkgZGF0ZQojc2V0dGluZyB0aGUgdmFyaWFibGVzL3ZhbHVlcwpgYGB7cn0KYmlydGhfZGF0ZSA8LSAiMDgvMjMvMTk2OCIKCiMgRWxpemFiZXRoIEdhcnJldCBBbmRlcnNvbiB3YXMgdGhlIGZpcnN0IGZlbWFsZSBwaHlzaWNpYW4KYW5kZXJzb24gPC0gIjkgSnVuZSAxODM2IgoKIyBNYXJ5IEFubmluZyBkaXNjb3ZlcmVkIHRoZSBmaXJzdCBjb21wbGV0ZSBQbGVzaW9zYXVyIGZvc3NpbCwgCiMgYW5kIG90aGVyIGltcG9ydGFudCBKdXJhc3NpYyBmb3NzaWxzCmFubmluZyA8LSAgIjE3OTkvMDUvMjEiCgojIEFsaWNlIEF1Z3VzdGEgQmFsbCB3YXMgYSBjaGVtaXN0IHdobyBkZXZlbG9wZWQgdGhlCiMgZmlyc3QgaW5qZWN0YWJsZSB0cmVhdG1lbnQgZm9yIGxlcHJvc3kuCmJhbGwgPC0gIkp1bHkgMjQsIDE4OTIiCgojIFN5bHZpYSBFYXJsZSB3YXMgdGhlIGZpcnN0IGNoaWVmdCBzY2llbnRpc3QgYXQgTk9BQQplYXJsZSA8LSAiQXVndXN0LCAzMCAoMTkzNSkiCgojIFJvc2FsaW5kIEZyYW5rbGluIHVzZWQgeC1yYXkgZGlmZnJhY3Rpb24gdG8gCiMgZGlzY292ZXIgRE5BIHN0cnVjdHVyZS4gV2F0c29uIGFuZCBDcmljayBjbGFpbWVkIGNyZWRpdC4KZnJhbmtsaW4gPC0gIjI1dGggb2YgSnVseSwgMTkyMCIKCiMgRXN0ZXIgTGVkZXJiZXJnIHdhcyB0aGUgZmlyc3QgdG8gZGlzY292ZXIgdGhhdCB2aXJ1c2VzIAojIGluZmVjdCBiYWN0ZXJpYS4gTGVkIHRvIGRpc2NvdmVyeSBvZiBsYW1iZGEgYmFjdGVyaW9waGFnZQpsZWRlcmJlcmcgPC0gIkRlY2VtYmVyIDE4LCAxOTIyIgoKIyBCYXJiYXJhIE1jQ2xpbnRvY2sgZGlzY292ZXJlZCB0cmFuc3Bvc2FibGUgZWxlbWVudHMgKGp1bXBpbmcgZ2VuZXMpLAojIGFuZCBkZXZlbG9wZWQgc3RhaW5pbmcgdGVjaG5pcXVlcyB0byBzdHVkeSBjaHJvbW9zb21lcwptY2NsaW50b2NrIDwtICIxNjA2MTkwMiIKCiMgTWFydGluIEx1dGhlciBLaW5nJ3MgYmlydGhkYXkgaXMgY29taW5nIHVwLiBMZXQncyByZW1lbWJlciBhIGRyZWFtCm1sa19iaXJ0aCA8LSAiMS8xNS8yOSIKbWxrX2RyZWFtIDwtICIxOTYzIEF1Z3VzdCAwOCIKYGBgCiMxLiBDb252ZXJ0IHRvIFBPU0lYY3QgZm9ybWF0IHVzaW5nIGx1YnJpZGF0ZSBmdW5jdGlvbnMuCmBgYHtyfQpjaHJvbmlzdGVyIDwtIG1keShiaXJ0aF9kYXRlKQphbmRlcnNvbiA8LSBkbXkoYW5kZXJzb24pCmFubmluZyA8LSB5bWQoYW5uaW5nKQpiYWxsIDwtIG1keShiYWxsKQplYXJsZSA8LSBtZHkoZWFybGUpCmZyYW5rbGluIDwtIGRteShmcmFua2xpbikKbGVkZXJiZXJnIDwtIG1keShsZWRlcmJlcmcpCm1jY2xpbnRvY2sgPC0gZG15KG1jY2xpbnRvY2spCm1sa19iaXJ0aCA8LSBtZHkobWxrX2JpcnRoKQptbGtfZHJlYW0gPC0geW1kKG1sa19kcmVhbSkKY2hyb25pc3RlcgphbmRlcnNvbgphbm5pbmcKYmFsbAplYXJsZQpmcmFua2xpbgpsZWRlcmJlcmcKbWNjbGludG9jawptbGtfYmlydGgKbWxrX2RyZWFtCgpgYGAKIzIuIENoZWNrIHRoZSBkYXRlcyB0byBtYWtlIHN1cmUgdGhleSBhcmUgY29ycmVjdC4gIAojQWxsIHRoZSBkYXRlcyBhcHBlYXIgdG8gYmUgZ29vZCwgZXhjZXB0IE1MSydzIGJpcnRoZGF5LCB3aGljaCBzaG93cyB1cCBhcyAyMDI5IGJlY2F1c2Ugb2YgdGhlIDE5NjggcnVsZS5JIGJlbGlldmUgSSBjYW4gZml4IGl0LgpgYGB7cn0KbWxrX2JpcnRoIDwtIHVwZGF0ZShtbGtfYmlydGgsIHllYXIgPSAxOTI5KQptbGtfYmlydGgKYGBgCiNUaGF0IGxvb2tzIG1vcmUgbGlrZSBpdC4gIFRoZSBtbGtfYmlydGggdmFyaWFibGUgaGFzIGJlZW4gdXBkYXRlZCB0byByZWZsZWN0IHRoZSBjb3JyZWN0IGJpcnRoIHllYXIuICBHb29kIHRoaW5nIEknbSBub3QgOCBtb250aHMgb2xkZXIgb3IgSSB3b3VsZCBoYXZlIHRvIG1vZGlmeSBteSBiaXJ0aCB5ZWFyIGFzIHdlbGwuCgojMy4gV2hhdCBkYXkgb2YgdGhlIHdlZWsgd2FzIEkgYm9ybiBvbj8KYGBge3J9CndkYXkoY2hyb25pc3RlciwgbGFiZWwgPSBUUlVFLCBhYmJyID0gRkFMU0UpCmBgYAojSXQgbG9va3MgbGlrZSBJIHdhcyBib3JuIG9uIGEgRnJpZGF5LiAgCgojNC4gV2hhdCBkYXkgb2YgdGhlIHdlZWsgd2lsbCBiaXJ0aGRheSBiZSB0aGlzIHllYXI/CgpgYGB7cn0KCmBgYAoK</div>
 
 
 
