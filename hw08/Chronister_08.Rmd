@@ -1,0 +1,17 @@
+---
+title: "Chronister_08.Rmd"
+author: Andrew Chronister"
+output: html_notebook
+date: "`r format(Sys.time(), '%d %B %Y')`"
+editor_options: 
+  chunk_output_type: inline
+---
+
+***
+###Load the Libraries
+```{r}
+library(tidyverse)
+library(lubridate)
+```
+
+
