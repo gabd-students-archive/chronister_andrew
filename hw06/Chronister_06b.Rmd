@@ -6,19 +6,21 @@ output: html_notebook
 editor_options: 
   chunk_output_type: inline
 ---
-
-#Load tidyverse and knitr libraries
+***
+###Load tidyverse and knitr libraries
 ```{r}
 library(tidyverse)
 library(knitr)
 install.packages("smatr")
 library(smatr)
 ```
-#defining path variable
+***
+###Defining file_path variable
 ```{r}
 file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data/"
 ```
-#Read in darters.txt
+***
+###Read in darters.txt (In reviewing I noticed that I DIDN'T include errant spaces in the column names this time.  Hooray for me!)
 ```{r}
 start_pos <-  c(1,4,15,16,17,18,21,25,29,33,36,39,41)
 stop_pos <- c(3,14,15,16,17,20,24,28,32,35,38,40,42)
@@ -26,13 +28,15 @@ names <- c("specimen id", "species", "riffle", "age", "sex", "length", "depth", 
 darters <- read_fwf(file.path(file_path, "darter.txt"), fwf_positions(start_pos, stop_pos, col_names = names), skip = 13)
 darters
 ```
-#remove tetrazonum and zonale
+***
+###remove tetrazonum and zonale
 ```{r}
 darters2 <- darters %>%
   filter(!species %in% c("tetrazonum", "zonale"))
 darters2
 ```
-#Wrangle data
+***
+###Wrangle the data (First time I did this, for some reason, I thought we were supposed to wrangle each step separately, not accumulate the changes as we went on.  My mistake!)
 ```{r}
   mutate(darters2,
        total_substrate = majsub + minsub
@@ -41,29 +45,32 @@ darters2
 #My calculations show that total_substrate = 1 for all observations.  
 
 ```{r}
-mutate(darters2,
+darters2 <- mutate(darters2,
        total_substrate = majsub + minsub
        )
-
+darters2
 ```
 #Change riffle values
 ```{r}
-  mutate(darters2,
+darters2 <- mutate(darters2,
          riffle = ifelse(riffle == 1,
                          "Riffle 1",
                          "Riffle 2"))
+darters2
 ```
 #Change length data from cm to mm
 ```{r}
-  mutate(darters2,
+darters2 <- mutate(darters2,
          length = length * 10)
+darters2
 ```
 #Change sex values
 ```{r}
-  mutate(darters2,
+darters2 <- mutate(darters2,
          sex = ifelse(sex == "f",
                       "Female",
                       "Male"))
+darters2
 ```
 #Summarize data
 ```{r}
@@ -75,7 +82,9 @@ darters_species_means <- darters2 %>%
             )
 darters_species_means
 ```
-#Plot 1
+***
+###Plot 1
+#make a plot
 ```{r}
 ggplot(data = darters_species_means) +
   stat_summary(mapping = aes(x=species, y=length),
@@ -83,7 +92,7 @@ ggplot(data = darters_species_means) +
                fun.ymax = max,
                fun.y = median
                ) +
-  geom_point(data = darters_species_means, mapping = aes(x=species, y=length), shape = 15)
+  geom_point(darters_species_means, mapping = aes(x=species, y=length), shape = 15)
   
 ```
 #Turn plot
@@ -127,7 +136,8 @@ ggplot(data = darters_species_means) +
 
 #The mean size of of the spectabile and caeruleum species are significantly larger in riffle 1 than riffle 2. the blennioides species is the opposite, with modestly larger size in riffle 1 vs. riffle 2.
 
-# Plot2
+***
+###Plot2
 #initial plot
 ```{r}
 ggplot(data = darters_species_means, mapping = aes(x=length, y=species))+
@@ -135,7 +145,7 @@ ggplot(data = darters_species_means, mapping = aes(x=length, y=species))+
 ```
 #add stat_summary
 ```{r}
-ggplot(data=darters_species_means, mapping = aes(x=length, y=species))+
+ggplot(data = darters_species_means, mapping = aes(x=length, y=species))+
   stat_summary(mapping = aes(x=length, y=species),
                fun.y = median,
                geom = "point",
@@ -178,13 +188,17 @@ ggplot(data = darters_species_means, mapping = aes(x=length, y=species))+
   facet_wrap(~ riffle, nrow=2)+
   labs(y=NULL, x="Length (cm)")
 ```
-####Stress and corticosterones in birds
+***
+###Stress and corticosterones in birds
 
+***
+###Load the libraries
 ```{r}
 library(tidyverse)
 library(smatr)
 ```
-
+***
+###Define the filepath and read in the data
 ```{r}
 file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data/"
 names <- c("capture_date", "day", "site", "urban_score", "cortF", "cortB", "sex", "smi", "tarsus", "mass", "basal_cort", "stress_cort")
@@ -195,7 +209,8 @@ feathers
 
 #convert decimal mark, change column names done above
 
-##Wrangle data
+***
+###Wrangle the data
 #calculate mean tarsus
 ```{r}
 mean_tarsus <- mean(feathers[["tarsus"]])
@@ -231,9 +246,13 @@ b
 ```{r}
 feathers3 <- mutate(feathers2,
        new_smi = mass * (mean_tarsus / tarsus)^b)
-feathers3
+
+select(feathers3, smi, new_smi)
 ```
 #smi and new_smi are very similar. now on to summarize...
+
+***
+###Summarize Data
 ```{r}
 site_data <- feathers2 %>%
   group_by(site)%>%
@@ -262,14 +281,16 @@ site_data <- feathers2 %>%
             )
 site_data
 ```
-##Make a boxplot of new_smi
+***
+###Graph the Data
+#Make a boxplot of new_smi
 ```{r}
   ggplot(data = feathers3, mapping = aes(x=site, y=new_smi)) +
   geom_boxplot()
 ```
 #the scaled mass index for site NIORT has a huge variation between the max and min as shown by the whiskers of the boxplot.  Also, the villefollet site has lower values than the rest of the locations.
 
-##Plot 2
+##Plot 2 (had to redefine basalcortmean and basalcortsde because I didn't save them to variables earlier.  I guess I could do this now, pretty easily, in reviewing the assignment... but I'm gonna let it stay as an example of how to do way more coding than necessary.)
 ```{r}
 basal_cort_mean  <-  mean(feathers2$basal_cort, na.rm = TRUE)
 basal_cort_sde  <-  sd(feathers2$basal_cort, na.rm =TRUE)/sqrt(33)
@@ -284,7 +305,7 @@ ggplot(data=feathers2, mapping = aes(x=site, y=basal_cort))+
 
   
 ```
-#repeat the plot without tie fighters
+#Plot 3-repeat the plot without tie fighters
 
 ```{r}
 stress_cort_mean <- mean(feathers2$stress_cort, na.rm = TRUE)
@@ -297,6 +318,7 @@ ggplot(data = feathers2, mapping = aes(x=site, y=stress_cort))+
   geom_linerange(ymin = stress_min,
                  ymax = stress_max)
 ```
+#I'm not happy about one thing.  The errorbar or linerange data is the same for each site.  I am thinking that it should be different at each site.  I'm still thinking about how that could be done, or if that is what I should be trying to do...
 
 ####Grad Student Extras...
 #use size 3 point located at the mean
