@@ -88,9 +88,15 @@ wday(chronister, label = TRUE, abbr = FALSE)
 ```
 #It looks like I was born on a Friday.  
 
-#4. What day of the week will birthday be this year?
-
+#4. What day of the week will birthday be this year? (The way I understand this question is that the code should update itself depending on what year it is, so that in 2020, it will grab the current year and use that data.  That is how I'm going to approach this. If one wanted to be able to look up what weekday the birthday would be five years in the future, there would need to be an edit made in order to enter what year is to be used.)
 ```{r}
-
+what_yr_is_it <- year(today())
+update(chronister, year = what_yr_is_it)
+wday(chronister, label = TRUE, abbr = FALSE)
 ```
+#It isn't very pretty, but it appears to be right.  
+
+
+
+
 
