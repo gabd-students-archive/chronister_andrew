@@ -6,6 +6,8 @@ output: html_notebook
 editor_options: 
   chunk_output_type: inline
 ---
+***
+###Load the libraries
 ```{r}
 
 knitr::opts_chunk$set(echo = TRUE)
@@ -14,20 +16,25 @@ library(GGally)
 library(patchwork)
 ```
 
-#Setting the data filepath
+***
+###Setting the data filepath and reading in the data
+
+
 ```{r}
 file_path <-"~/Documents/BI685Files/GitHubDocs/chronister_andrew/data"
 sparrows_raw <- read_tsv(file.path(file_path, "sparrows.txt"))
 View(sparrows_raw)
 sparrows_raw
 ```
+#Wrangle
 ```{r}
 sparrows <- sparrows_raw %>%
   mutate(box_group = "Sparrows",
          row_order = 1:nrow(.))
 View(sparrows)
 ```
-#Figure 2: Outliers 
+***
+###Figure 2: Outliers 
 ```{r}
 plot_box <- sparrows %>%
   ggplot(aes(x = box_group,
@@ -54,6 +61,8 @@ plot_box + plot_cleveland
 ```{r}
 plot_box + plot_cleveland + coord_flip()
 ```
+***
+###Figure 3
 #Create Culmen variable
 ```{r}
 p_culmen <-  sparrows %>%
@@ -157,7 +166,8 @@ p_culmen + p_nalospi + p_wt + p_wingcrd + p_tarsus + p_head + plot_layout(ncol =
 ```
 #It looks like there is one possible outlier in nalospi, one in wingcrd, one in tarsus and two in head. All of these would need further consideration, just like the wingcrd example, to determine if the value is practical or an error. 
 
-####Figure 5
+***
+###Figure 5
 #First code block to re-create the histogram
 ```{r}
 h1 <- sparrows %>%
@@ -193,7 +203,7 @@ h2
 h1 + h2
 ```
 #Grad/Honors density plot.
-#Left panel playground(where I'll figure out how to do it)
+#Left panel playground(where I'll figure out how to do it, maybe)
 ```{r}
 dp_1 <- sparrows %>%
   filter(Month %in% 6:8) %>%
@@ -221,13 +231,16 @@ dp_2
 ```{r}
 dp_1 + dp_2 + plot_layout(nrow = 1)
 ```
+***
+###Figure 10
 #Create ggscatmat plot of data using first 7 columns
 ```{r}
 sparrows %>% ggscatmat(columns = 1:7)
 ```
 #Tis a thing of beauty, and really, really easy.  
 
-#Figure 11: Interactions
+***
+###Figure 11: Interactions
 ```{r}
 month_order <-  c("May", "June", "July", "August", "September")
 sparrows %>%
@@ -247,7 +260,8 @@ sparrows %>%
   geom_smooth(method = lm, se = FALSE)+
   facet_grid(Sex ~ Month)
 ```
-#### Part 2:Aegla Crab-fest 
+***
+### Part 2:Aegla Crab-fest 
 #import the raw data
 ```{r}
 aegla_raw <- read_csv(file.path(file_path, "aegla_crabs.csv"))
@@ -410,7 +424,7 @@ aegla %>% ggscatmat()
 ```{r}
 aegla %>% ggpairs(columns = 1:6)
 ```
-#This makes a lot more sense.  TDS and Conductivity have a strong correlation, which makes sense with solids desoved in the water, pH and TDS have a pretty good correlation which also makes sense.  I'll try with the other variables. 
+#This makes a lot more sense.  TDS and Conductivity have a strong correlation, which makes sense with solids desoved in the water, pH and TDS have a pretty good correlation which also makes sense.  I'll play around with the other variables. 
 
 ```{r}
 aegla %>% ggpairs(columns = 7:13)
