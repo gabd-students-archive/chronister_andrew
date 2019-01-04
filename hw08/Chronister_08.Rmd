@@ -94,7 +94,32 @@ what_yr_is_it <- year(today())
 update(chronister, year = what_yr_is_it)
 wday(chronister, label = TRUE, abbr = FALSE)
 ```
-#It isn't very pretty, but it appears to be right.  
+#It isn't very pretty, but it appears to be right.  Probably should have done the two steps in pipes.  
+
+#5. What day of the week will my birthday be celebrated on in 2525? :D
+```{r}
+chronister %>%
+  update(year = 2525) %>%
+  wday(label = TRUE, abbr = FALSE)
+```
+#Looks like "Chronister Day" will be on a Thursday in 2525.  Don't know what they would be celebrating though.  
+
+#6. How many days between the birth of Anderson and Ball.
+```{r}
+anderson - ball
+```
+#It can't be that easy... can it? Wow.
+
+#7. Duration between MLK birth and MLK dream.
+```{r}
+mlk_duration <- mlk_dream - mlk_birth
+mlk_duration <- as.duration(mlk_duration)
+mlk_duration
+
+```
+#Looks like MLK was 34 years old when he gave his famous speech.
+
+#Enter eight birthdates into vector.
 
 
 
