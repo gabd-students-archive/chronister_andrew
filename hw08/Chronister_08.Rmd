@@ -120,6 +120,11 @@ mlk_duration
 #Looks like MLK was 34 years old when he gave his famous speech.
 
 #Enter eight birthdates into vector.
+```{r}
+birth_vector <- c("1968-08-23","1836-06-09","1799-05-21","1892-07-24","1935-08-30","1920-07-25","1922-12-18","1902-06-16","1929-01-15","1963-08-08")
+name_vector <- c("chronister", "anderson", "anning", "ball", "earle", "franklin", "lederberg", "mcclintock", "mlk_birth", "mlk_dream")
+```
+#Which birthdates are leap years?
 
 
 
