@@ -149,8 +149,14 @@ sort(day_diff, decreasing = TRUE)
 ```
 ***
 ###Part II
+#Load the libraries
+```{r}
+library(tidyverse)
+library(lubridate)
+```
 #Import the data
 ```{r}
+file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data"
 lake_raw <- read.csv(file.path(file_path, "lake_ice.csv"), na.strings = c(-999))
 lake_raw
 ```
@@ -173,7 +179,79 @@ lake_ice <- lake_ice%>%
 lake_ice
 
 ```
+#Create duration column from iceon, iceoff
+```{r}
+lake_ice2 <- lake_ice%>%
+  mutate(duration = as.numeric(ice_off - ice_on))
+lake_ice2
+```
+#Looks like the duration is in days.  BTW, I was able to filter the -999 values to NA, but cant figure out how to combine the two 1953 values into one.  I'll open an issue when I get the rest of the assignment done.  
 
+#create line graph to show how duration has changed over iceoff year.
+```{r}
+
+ggplot(lake_ice2, aes(x = iceoff_year, y = duration), na.rm = TRUE)+
+  geom_line()+
+  labs(x = "Year", y = "Ice Duration (days)")
+```
+#looks pretty much like the example... moving on.  
+
+***
+###Soil Carbon Dioxide
+
+#Library loading 
+```{r}
+library(tidyverse)
+library(lubridate)
+```
+#Import the data
+```{r}
+file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data"
+soil_co2_raw <- read_tsv(file.path(file_path, "soil_co2.txt"))
+soil_co2_raw
+```
+#Establish a date variable and rename the columns
+```{r}
+ref_date <- "2006-01-01"
+soil_co2 <- soil_co2_raw %>%
+  rename(Day_number = `DayN[]`,
+         Sample_day = `Datecode[]`,
+         Minutes = `Min[]`,
+         Vegetation = `Veg[]`,
+         Plot = `Plot[]`,
+         Group = `Group[]`,
+         Corrected_CO2_Level = `CorrCO2[]`,
+         Soil_temp = `SoilT[]`)
+soil_co2
+ref_date
+```
+#Make date column that tags day number to reference date
+#Create Year, Month columns and group data by them.
+```{r}
+ref_date_int <- ymd(ref_date)
+soil_co2 <- soil_co2 %>%
+  mutate(
+    Date = ref_date_int + Day_number,
+    Year = year(Date),
+    Month = month(Date, label = TRUE)
+  )%>%
+  group_by(Year, Month)
+soil_co2
+```
+#Summarize mean and standard error for CO2
+```{r}
+soil_co2_sum <- soil_co2 %>%
+  summarize(
+    MeanCO2 = mean(Corrected_CO2_Level),
+    StdErrCO2 = sd(Corrected_CO2_Level)/sqrt(NROW(soil_co2))
+  )
+soil_co2_sum
+  
+```
+#Make a column chart of mean CO2
+```{r}
+
+```
 
 
 
