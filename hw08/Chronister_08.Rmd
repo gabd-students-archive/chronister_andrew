@@ -185,7 +185,7 @@ lake_ice2 <- lake_ice%>%
   mutate(duration = as.numeric(ice_off - ice_on))
 lake_ice2
 ```
-#Looks like the duration is in days.  BTW, I was able to filter the -999 values to NA, but cant figure out how to combine the two 1953 values into one.  I'll open an issue when I get the rest of the assignment done.  
+#Looks like the duration is in days.  BTW, I was able to filter the -999 values to NA, but cant remember how to combine the two 1953 values into one.  Maybe I'll open an issue when I get the rest of the assignment done.  
 
 #create line graph to show how duration has changed over iceoff year.
 ```{r}
@@ -250,7 +250,13 @@ soil_co2_sum
 ```
 #Make a column chart of mean CO2
 ```{r}
-
+ggplot(soil_co2_sum)+
+  geom_col(aes(x = Month, y = MeanCO2), alpha = 1/2)+
+  geom_errorbar(aes(x = Month,
+                     ymin = MeanCO2 - StdErrCO2,
+                     ymax = MeanCO2 + StdErrCO2,
+                     ), size = 3)
+  
 ```
 
 
