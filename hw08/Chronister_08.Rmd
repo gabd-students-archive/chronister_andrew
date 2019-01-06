@@ -122,9 +122,22 @@ mlk_duration
 #Enter eight birthdates into vector.
 ```{r}
 birth_vector <- c("1968-08-23","1836-06-09","1799-05-21","1892-07-24","1935-08-30","1920-07-25","1922-12-18","1902-06-16","1929-01-15","1963-08-08")
-name_vector <- c("chronister", "anderson", "anning", "ball", "earle", "franklin", "lederberg", "mcclintock", "mlk_birth", "mlk_dream")
+names(birth_vector) <- c("chronister", "anderson", "anning", "ball", "earle", "franklin", "lederberg", "mcclintock", "mlk_birth", "mlk_dream")
 ```
 #Which birthdates are leap years?
+
+```{r}
+YearsOnly <- year(birth_vector)
+LeapYears <- leap_year(YearsOnly)
+Leaps <- YearsOnly[LeapYears]
+Leaps
+
+```
+#Looks like my birth year was a leap year, so there were four in the list.  I think I'm supposed to leave the names in there, but could have removed them with the unname(birth_vector).
+
+```{r}
+
+```
 
 
 
