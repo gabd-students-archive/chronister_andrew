@@ -151,7 +151,7 @@ sort(day_diff, decreasing = TRUE)
 ###Part II
 #Import the data
 ```{r}
-lake_raw <- read.csv(file.path(file_path, "lake_ice.csv"))
+lake_raw <- read.csv(file.path(file_path, "lake_ice.csv"), na.strings = c(-999))
 lake_raw
 ```
 #filter to save only Lake Mendota
@@ -166,6 +166,11 @@ lake_ice
 ```
 #Use lubridate to assemble dates into iceon, iceoff
 ```{r}
+lake_ice <- lake_ice%>%
+  select(iceon_year, iceon_month, iceon_day, iceoff_year, iceoff_month, iceoff_day)%>%
+  mutate(ice_on = make_date(iceon_year, iceon_month, iceon_day),
+         ice_off = make_date(iceoff_year, iceoff_month, iceoff_day))
+lake_ice
 
 ```
 
