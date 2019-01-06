@@ -135,7 +135,16 @@ Leaps
 ```
 #Looks like my birth year was a leap year, so there were four in the list.  I think I'm supposed to leave the names in there, but could have removed them with the unname(birth_vector).
 
+#subtract each birthday from my own.  Determine the number of days 
 ```{r}
+birth_dates <- ymd(birth_vector)
+chronister_day <- birth_dates[1]
+day_diff <- chronister_day - birth_dates
+names(day_diff) <- c("chronister", "anderson", "anning", "ball", "earle", "franklin", "lederberg", "mcclintock", "mlk_birth", "mlk_dream")
+sort(day_diff, decreasing = TRUE)
+
+
+
 
 ```
 
