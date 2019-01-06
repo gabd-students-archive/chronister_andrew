@@ -255,7 +255,8 @@ ggplot(soil_co2_sum)+
   geom_errorbar(aes(x = Month,
                      ymin = MeanCO2 - StdErrCO2,
                      ymax = MeanCO2 + StdErrCO2,
-                     ), size = 3)
+                     ), size = .5)+
+  facet_wrap(~Year, ncol = 3)
   
 ```
 
