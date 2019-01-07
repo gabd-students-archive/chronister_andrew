@@ -320,5 +320,26 @@ special_years <- meandis_sum%>%
 special_years
 ```
 #Plot the data
+```{r}
+dis_plot <- ggplot()+
+  geom_line(meandis_sum, mapping = aes(x = Month, y = mean_discharge, group = year),
+            size = 0.3,
+            color = "gray70")+
+  labs(x = NULL, y = "Discharge (cf/s, thousands)")
+dis_plot
+```
+#Add smaller data set
+```{r}
+special_years %>%
+  ggplot() +
+  geom_line(meandis_sum, mapping = aes(x = Month, y = mean_discharge, group = year),
+            size = 0.3,
+            color = "gray70")+
+  labs(x = NULL, y = "Discharge (cf/s, thousands)")+
+  geom_line(data = special_years, aes(x = Month, y = mean_discharge, group = year, color = event))
+  
+  
+```
+
 
 
