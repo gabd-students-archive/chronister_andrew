@@ -243,7 +243,7 @@ soil_co2
 soil_co2_sum <- soil_co2 %>%
   summarize(
     MeanCO2 = mean(Corrected_CO2_Level),
-    StdErrCO2 = sd(Corrected_CO2_Level)/sqrt(NROW(soil_co2))
+    StdErrCO2 = sd(Corrected_CO2_Level)/sqrt(n())
   )
 soil_co2_sum
   
@@ -254,11 +254,22 @@ ggplot(soil_co2_sum)+
   geom_col(aes(x = Month, y = MeanCO2), alpha = 1/2)+
   geom_errorbar(aes(x = Month,
                      ymin = MeanCO2 - StdErrCO2,
-                     ymax = MeanCO2 + StdErrCO2,
-                     ), size = .5)+
+                     ymax = MeanCO2 + StdErrCO2),
+                size = .5, width = .5
+                )+
   facet_wrap(~Year, ncol = 3)
   
 ```
-
+#Make the same plot with points and use linerange.  
+```{r}
+ggplot(soil_co2_sum)+
+  geom_point(aes(x = Month, y = MeanCO2))+
+  geom_linerange(aes(x = Month,
+                     ymin = MeanCO2 - StdErrCO2,
+                     ymax = MeanCO2 + StdErrCO2), 
+                 )+
+  facet_wrap(~Year, ncol = 3)
+```
+I 
 
 
