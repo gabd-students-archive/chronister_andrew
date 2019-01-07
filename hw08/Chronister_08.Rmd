@@ -313,6 +313,12 @@ meandis_sum <- mutate(meandis_sum,
                       ))
 meandis_sum
 ```
-
+#Make a second data set
+```{r}
+special_years <- meandis_sum%>%
+  filter(event %in% c("Flood", "Drought"))
+special_years
+```
+#Plot the data
 
 
