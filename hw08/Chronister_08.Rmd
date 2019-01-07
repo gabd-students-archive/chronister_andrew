@@ -270,6 +270,49 @@ ggplot(soil_co2_sum)+
                  )+
   facet_wrap(~Year, ncol = 3)
 ```
-I 
+
+***
+###Mississippi River Discharge
+
+#Load the libraries
+```{r}
+library(tidyverse)
+library(lubridate)
+```
+#Set the file_path variable and read in the data.
+```{r}
+file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data"
+thebes_raw <- read_csv(file.path(file_path, "thebes_discharge.csv"))
+thebes_raw
+```
+#Tidy the data. The data is not tidy right now. Group by year and month
+
+```{r}
+thebes_raw <- na.omit(thebes_raw)
+thebes_tidy <- thebes_raw %>%
+  gather("1988":"2018", key = "year", value = "discharge") %>%
+  mutate(discharge = discharge / 1000)%>%
+  group_by(year, Month) 
+thebes_tidy
+```
+#Summarize the mean discharge.
+```{r}
+meandis_sum <- summarize(thebes_tidy,
+                           mean_discharge = mean(discharge, na.rm = FALSE))
+meandis_sum
+```
+#Add event column
+```{r}
+meandis_sum <- mutate(meandis_sum,
+                      event = case_when(
+                        year == "1993" ~ "Flood",
+                        year == "2011" ~ "Flood",
+                        year == "1988" ~ "Drought",
+                        year == "2012" ~ "Drought",
+                        TRUE ~"Normal"
+                      ))
+meandis_sum
+```
+
 
 
