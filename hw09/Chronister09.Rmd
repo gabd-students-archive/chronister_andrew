@@ -68,7 +68,18 @@ str_count(gliadin_seq, "[^ACGT]")
 str_count(gliadin_seq, "ATG")
 str_count(gliadin_seq, "TGA|TTA")
 ```
-#
+#Assign CAAT and TATA box variables
+```{r}
+caat_box <- c("CCAAT")
+tata_box <- c("CTATAA")
+str_count(gliadin_seq, caat_box)
+str_count(gliadin_seq, tata_box)
+```
+#Create CAAT sequence searrch string.
+```{r}
+tata_seq <- 
+```
+
 
 
 
