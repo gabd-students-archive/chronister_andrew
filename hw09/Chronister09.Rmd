@@ -16,7 +16,64 @@ library(tidyverse)
 library(htmlwidgets)
 
 ```
+***
+###Define the file.path
+```{r}
+file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data"
+```
 
 
 ***
 ###Part 1:DNA Strings
+***
+####Read in the data
+```{r}
+(gliadin_raw <- read_lines(file.path(file_path, "beta_gliadin.txt"), skip = 1))
+```
+***
+###"Tidy" and "Wrangle" the data
+#Getting rid of the spaces, digits and tabs.
+```{r}
+gliadin_interm <- gliadin_raw%>%
+  str_replace_all(" ", "")%>%
+  str_replace_all("\\d", "")%>%
+  str_replace_all("\\t", "")
+gliadin_interm
+```
+#Collapse the strings into just one string.
+```{r}
+gliadin_seq <- gliadin_interm%>%
+  str_c(collapse = "")
+gliadin_seq
+```
+#Convert case to upper.
+```{r}
+gliadin_seq <- gliadin_seq%>%
+  str_to_upper()
+gliadin_seq
+str_length(gliadin_seq)
+```
+#The DNA sequence is 3310 characters long. I guess I got it right.  
+
+***
+###Sequence analysis: find the promoter region
+#Use string count to find non ACGT letters.
+```{r}
+str_count(gliadin_seq, "[^ACGT]")
+```
+#I came up with 0 letters that are not ACGT.
+
+#Count possible Start codons. Count possible Stop codons.
+```{r}
+str_count(gliadin_seq, "ATG")
+str_count(gliadin_seq, "TGA|TTA")
+```
+#
+
+
+
+
+
+
+
+
