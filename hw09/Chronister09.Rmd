@@ -1,0 +1,22 @@
+---
+title: "HW 09: Strings"
+author: "Andrew Chronister"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+***
+###Install and load the libraries
+```{r}
+install.packages("ggthemes")
+install.packages("RColorBrewer")
+install.packages("viridis")
+library(tidyverse)
+library(htmlwidgets)
+
+```
+
+
+***
+###Part 1:DNA Strings
