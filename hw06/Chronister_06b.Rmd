@@ -86,7 +86,7 @@ darters_species_means
 ###Plot 1
 #make a plot
 ```{r}
-ggplot(data = darters_species_means) +
+ggplot(data = darters2) +
   stat_summary(mapping = aes(x=species, y=length),
                fun.ymin = min,
                fun.ymax = max,
@@ -97,7 +97,7 @@ ggplot(data = darters_species_means) +
 ```
 #Turn plot
 ```{r}
-ggplot(data = darters_species_means) +
+ggplot(data = darters2) +
   stat_summary(mapping = aes(x=species, y=length),
                fun.ymin = min,
                fun.ymax = max,
@@ -109,7 +109,7 @@ ggplot(data = darters_species_means) +
 ```
 #Add Facet wrap
 ```{r}
-ggplot(data = darters_species_means) +
+ggplot(data = darters2) +
   stat_summary(mapping = aes(x=species, y=length),
                fun.ymin = min,
                fun.ymax = max,
@@ -121,7 +121,7 @@ ggplot(data = darters_species_means) +
 ```
 #Change labels
 ```{r}
-ggplot(data = darters_species_means) +
+ggplot(data = darters2) +
   stat_summary(mapping = aes(x=species, y=length),
                fun.ymin = min,
                fun.ymax = max,
@@ -140,29 +140,29 @@ ggplot(data = darters_species_means) +
 ###Plot2
 #initial plot
 ```{r}
-ggplot(data = darters_species_means, mapping = aes(x=length, y=species))+
-  geom_point(color = "grey60")
+ggplot(data = darters2, mapping = aes(x=length, y=species))+
+  geom_point(color = "grey70")
 ```
 #add stat_summary
 ```{r}
-ggplot(data = darters_species_means, mapping = aes(x=length, y=species))+
-  stat_summary(mapping = aes(x=length, y=species),
+ggplot(data = darters2, mapping = aes(x=length, y=species))+
+  geom_point(color="grey70")+
+  stat_summary(data = darters_species_means, mapping = aes(x=length, y=species),
                fun.y = median,
                geom = "point",
                size = 2.2
-               )+
-  geom_point(color="grey60")
+               )
 ```
 #add second stat_summary
 ```{r}
-ggplot(data = darters_species_means, mapping = aes(x=length, y=species))+
-  stat_summary(mapping = aes(x=length, y=species),
+ggplot(data = darters2, mapping = aes(x=length, y=species))+
+  geom_point(color="grey70")+
+  stat_summary(data = darters_species_means, mapping = aes(x=length, y=species),
                fun.y = median,
                geom = "point",
                size=2.2
                )+
-  geom_point(color="grey60")+
-  stat_summary(mapping = aes(x=length, y=species),
+  stat_summary(data = darters_species_means, mapping = aes(x=length, y=species),
                fun.y = mean,
                geom = "point",
                size=3,
@@ -171,14 +171,14 @@ ggplot(data = darters_species_means, mapping = aes(x=length, y=species))+
 ```
 #flip, facet, label
 ```{r}
-ggplot(data = darters_species_means, mapping = aes(x=length, y=species))+
-  stat_summary(mapping = aes(x=length, y=species),
+ggplot(data = darters2, mapping = aes(x=length, y=species))+
+  geom_point(color="grey70")+
+  stat_summary(data = darters_species_means, mapping = aes(x=length, y=species),
                fun.y = median,
                geom = "point",
                size=2.2
                )+
-  geom_point(color="grey60")+
-  stat_summary(mapping = aes(x=length, y=species),
+  stat_summary(data = darters_species_means, mapping = aes(x=length, y=species),
                fun.y = mean,
                geom = "point",
                size=3,
@@ -238,8 +238,7 @@ summary(major_axis)
 ```
 #Apply the coef function
 ```{r}
-coef(major_axis)
-b <- 1.864889
+b <- coef(major_axis)["slope"]
 b
 ```
 #put it all together to figure out SMI
@@ -269,15 +268,16 @@ site_data
 sum(is.na(feathers2$basal_cort))
 sum(is.na(feathers2$stress_cort))
 ```
-#Unless I'm overthinking it, the values for the sqrt should be "33" and "40" accordingly. That's what I'm gonna do... even if it is wrong. :D Or I could have removed the NA values when tidying the data... that would have been smart.  
+#Unless I'm overthinking it, the values for the sqrt should be "33" and "40" accordingly. That's what I'm gonna do... even if it is wrong. :D Or I could have removed the NA values when tidying the data... that would have been smart. FIXED AS PER SUGGESTIONS! 
 
 ```{r}
 site_data <- feathers2 %>%
   group_by(site) %>%
-  summarize(basal_cort_mean = mean(basal_cort, na.rm = TRUE),
-            basal_cort_sde = sd(basal_cort, na.rm =TRUE)/sqrt(33),
+  summarize(n=n(), 
+            basal_cort_mean = mean(basal_cort, na.rm = TRUE),
+            basal_cort_sde = sd(basal_cort, na.rm =TRUE)/sqrt(n),
             stress_cort_mean = mean(stress_cort, na.rm = TRUE),
-            stress_cort_sde =sd(stress_cort, na.rm = TRUE)/sqrt(40)
+            stress_cort_sde =sd(stress_cort, na.rm = TRUE)/sqrt(n)
             )
 site_data
 ```
@@ -290,77 +290,65 @@ site_data
 ```
 #the scaled mass index for site NIORT has a huge variation between the max and min as shown by the whiskers of the boxplot.  Also, the villefollet site has lower values than the rest of the locations.
 
-##Plot 2 (had to redefine basalcortmean and basalcortsde because I didn't save them to variables earlier.  I guess I could do this now, pretty easily, in reviewing the assignment... but I'm gonna let it stay as an example of how to do way more coding than necessary.)
+##Plot 2 (had to redefine basalcortmean and basalcortsde because I didn't save them to variables earlier.  I guess I could do this now, pretty easily, in reviewing the assignment... but I'm gonna let it stay as an example of how to do way more coding than necessary.) FIXING IT AS PER SUGGESTION. much better! Much better TIE fighters! 
 ```{r}
-basal_cort_mean  <-  mean(feathers2$basal_cort, na.rm = TRUE)
-basal_cort_sde  <-  sd(feathers2$basal_cort, na.rm =TRUE)/sqrt(33)
-basal_min <- basal_cort_mean - basal_cort_sde
-basal_max <- basal_cort_mean + basal_cort_sde
-
-ggplot(data=feathers2, mapping = aes(x=site, y=basal_cort))+
+ggplot(data=site_data,
+       mapping = aes(x=site, y=basal_cort_mean))+
   geom_point()+
-  geom_errorbar(ymin = basal_min,
-                ymax = basal_max)
-
-
-  
+  geom_errorbar(aes(ymin = basal_cort_mean - basal_cort_sde,
+                    ymax = basal_cort_mean + basal_cort_sde))
 ```
 #Plot 3-repeat the plot without tie fighters
 
 ```{r}
-stress_cort_mean <- mean(feathers2$stress_cort, na.rm = TRUE)
-stress_cort_sde  <- sd(feathers2$stress_cort, na.rm = TRUE)/sqrt(40)
-stress_min <- stress_cort_mean - stress_cort_sde
-stress_max <- stress_cort_mean + stress_cort_sde
-
-ggplot(data = feathers2, mapping = aes(x=site, y=stress_cort))+
+ggplot(data = site_data,
+       mapping = aes(x=site, y=stress_cort_mean))+
   geom_point()+
-  geom_linerange(ymin = stress_min,
-                 ymax = stress_max)
+  geom_linerange(aes(ymin = stress_cort_mean - stress_cort_sde,
+                     ymax = stress_cort_mean + stress_cort_sde))
 ```
-#I'm not happy about one thing.  The errorbar or linerange data is the same for each site.  I am thinking that it should be different at each site.  I'm still thinking about how that could be done, or if that is what I should be trying to do...
+#I'm happy about this now!   I knew something was terribly, horribly wrong. :D
+
+#<old text>I'm not happy about one thing.  The errorbar or linerange data is the same for each site.  I am thinking that it should be different at each site.  I'm still thinking about how that could be done, or if that is what I should be trying to do...
 
 ####Grad Student Extras...
 #use size 3 point located at the mean
 ```{r}
-ggplot(data = feathers2, mapping = aes(x=site, y=stress_cort))+
+ggplot(data = site_data, mapping = aes(x=site, y=stress_cort_mean))+
   geom_point()+
   geom_point(mapping = aes(x=site, y=stress_cort_mean), size = 3)+
-  geom_linerange(ymin = stress_min,
-                 ymax = stress_max)
+  geom_linerange(aes(ymin = stress_cort_mean - stress_cort_sde,
+                     ymax = stress_cort_mean + stress_cort_sde))
 ```
 
 #Make it maroon
 ```{r}
-ggplot(data=feathers2, mapping=aes(x=site, y=stress_cort))+
+ggplot(data = site_data, mapping = aes(x=site, y=stress_cort_mean))+
   geom_point()+
   geom_point(mapping = aes(x=site, y=stress_cort_mean), size = 3, color = "maroon")+
-  geom_linerange(ymin = stress_min,
-                 ymax = stress_max)
+  geom_linerange(aes(ymin = stress_cort_mean - stress_cort_sde,
+                     ymax = stress_cort_mean + stress_cort_sde))
 ```
 #Place error bars behind points, also changed size and alpha of linerange for viewability
 
 ```{r}
-ggplot(data = feathers2, mapping = aes(x=site, y=stress_cort))+
-  geom_linerange(alpha = 1/30,
-                 ymin = stress_min,
-                 ymax=stress_max,
-                 size=2,
-                 )+
+ggplot(data = site_data, mapping = aes(x=site, y=stress_cort_mean))+
+  geom_linerange(aes(ymin = stress_cort_mean - stress_cort_sde,
+                     ymax = stress_cort_mean + stress_cort_sde), alpha = 1/5,
+                     size = 2)+
   geom_point()+
   geom_point(mapping = aes(x=site, y=stress_cort_mean), size = 3, color = "maroon")
 ```
 #Make the TIE fighters look more like TIE fighters!
 ```{r}
-ggplot(data=feathers2, mapping = aes(x=site, y=stress_cort))+
-  geom_errorbar(alpha = 1/40,
-                ymin = stress_min,
-                ymax = stress_max,
-                size = 1/2)+
+ggplot(data = site_data, mapping = aes(x=site, y=stress_cort_mean))+
+  geom_errorbar(aes(ymin = stress_cort_mean - stress_cort_sde,
+                     ymax = stress_cort_mean + stress_cort_sde), alpha = 1/5,
+                     size = 1/2)+
   geom_point()+
-  geom_point(mapping = aes(x=site, y=stress_cort_mean), size=3, color="maroon")
+  geom_point(mapping = aes(x=site, y=stress_cort_mean), size = 3, color = "maroon")
 ```
-
+#Now THOSE are some beautiful TIE fighters!  
 
 
 
