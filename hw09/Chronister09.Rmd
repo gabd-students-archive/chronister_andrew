@@ -144,8 +144,16 @@ ant_abundance
 ***
 ###Plot the data
 ```{r}
-
+ant_abundance%>%
+  ggplot(aes(x = reorder(species, total), y = total, group = species))+
+  geom_line(color = "gray")+
+  geom_point(aes(shape = year), size = 2)+
+  coord_flip()+
+  labs(x = NULL, y = "Total Abundance", shape = "Year")+
+  theme_minimal()
 ```
+#So in the slope graph, you are simply adding the points and text to the ends of a line graph. Interesting.
+
 
 
 
