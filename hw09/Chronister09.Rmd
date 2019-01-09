@@ -154,6 +154,43 @@ ant_abundance%>%
 ```
 #So in the slope graph, you are simply adding the points and text to the ends of a line graph. Interesting.
 
+***
+###Part 3:Featuring Phlox Flowers
+***
+###Install the libraries and set file_path. 
+```{r}
+library(tidyverse)
+library(htmlwidgets)
+file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data"
+```
+***
+###Read in the data
+```{r}
+(flowers_raw <- read.csv(file.path(file_path, "flower_size.csv")))
+
+```
+***
+###Tidy up the data
+```{r}
+flowers_tidy <- flowers_raw%>%
+  filter(!is.na(Flower.number))%>%
+  select(species = Species, cor_length = Corolla.length..cm., throat_width = Corolla.width.throat..cm.)
+flowers_tidy
+```
+#Separate the genus and species.
+```{r}
+flowers_spec <- flowers_tidy%>%
+  separate(species, into = c("genus", "species", NA, NA))
+flowers_spec
+```
+#Group data and summarize the means
+```{r}
+flowers_spec%>%
+  group_by(genus, species)%>%
+  summarize(mean(cor_length), mean(throat_width), max(cor_length), max(throat_width))
+```
+
+
 
 
 
