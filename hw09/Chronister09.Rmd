@@ -97,6 +97,55 @@ promotor
 str_length(promotor)
 ```
 
+***
+###Part 2: Ants!
+***
+###Load the Libraries and define the file path. (packages are already installed, but if they weren't, I'd be doing this.)
+```{r}
+install.packages("ggthemes")
+install.packages("RColorBrewer")
+install.packages("viridis")
+library(tidyverse)
+library(htmlwidgets)
+file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data"
+```
+***
+###Read in the data.
+```{r}
+ants_raw <- read_csv(file.path(file_path, "ants.csv"))
+ants_raw
+```
+
+***
+###Tidy the data and wrangle it
+```{r}
+ants_data <- ants_raw %>%
+  select(-c(season, seas.code, trt, plot, sample))%>%
+  gather(key = species, value = abundance, matches("\\w\\.\\w", ignore.case = FALSE))
+ants_data
+```
+#Removing the seas.code row makes the gather much easier.  
+
+#The hardest part maybe...
+```{r}
+ant_abundance <- ants_data%>%
+  mutate(
+    species = str_replace(
+      species,
+      pattern = "(^[A-Z]*\\w{3})\\w+\\.(\\w{4})\\w+",
+    replacement = "\\1\\2"),
+    year = factor(year, levels = c("2010", "2011"), labels = c("2010", "2011"), ordered = TRUE))%>%
+  group_by(year, species)%>%
+  summarize(total = sum(abundance, na.rm=TRUE))
+ant_abundance
+```
+#Sheesh.  My brain hurts.  
+
+***
+###Plot the data
+```{r}
+
+```
 
 
 
