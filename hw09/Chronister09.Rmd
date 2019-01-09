@@ -179,16 +179,16 @@ flowers_tidy
 ```
 #Separate the genus and species.
 ```{r}
-flowers_spec <- flowers_tidy%>%
+flowers_tidy <- flowers_tidy%>%
   separate(species, into = c("genus", "species"), sep = " ", extra = "drop")
-flowers_spec
+flowers_tidy
 ```
 #Group data and summarize the means
 ```{r}
-flowers_spec <- flowers_spec%>%
+flowers_tidy <- flowers_tidy%>%
   group_by(genus, species)%>%
-  summarize(mean(cor_length), mean(throat_width), max(cor_length), max(throat_width))
-flowers_spec
+  summarize(mean_length = mean(cor_length), mean_width = mean(throat_width), max_length = max(cor_length), max_width = max(throat_width))
+flowers_tidy
 ```
 
 ***
@@ -213,12 +213,65 @@ pollinators
 
 #Join the datasets
 ```{r}
-phlox <- inner_join(flowers_spec, pollinators, by = c("genus", "species"))
+phlox <- inner_join(flowers_tidy, pollinators, by = c("genus", "species"))
 phlox
 ```
+#Plotting
+```{r}
+phlox%>%
+  ggplot(aes(x=mean_length, y=mean_width, color=Syndrome))+
+  geom_point()
+```
+#combine the bees and the beetles
+```{r}
+phlox <- phlox%>%
+  mutate(
+    Syndrome = str_replace(Syndrome, "bee$", "bees"),
+    Syndrome = str_replace(Syndrome, "beetle$", "beetles"))
 
+```
+#Replot
+```{r}
+phlox%>%
+  ggplot(aes(x=mean_length, y=mean_width, color=Syndrome))+
+  geom_point()
+```
+#Run the code
+```{r}
+phlox%>%
+  group_by(Syndrome)%>%
+  count(Syndrome)
+```
+#Lump beetles and flies together
+```{r}
+phlox <- phlox%>%
+  mutate(Syndrome = str_replace(Syndrome, "bees|beetles", "other insects"))
+phlox
+```
+#Plot again
+```{r}
+phlox%>%
+  ggplot(aes(x=mean_length, y=mean_width, color=Syndrome))+
+  geom_point()
+```
+#create a new column called syndrome group
+```{r}
+phlox <- phlox%>%
+  mutate(
+    syndrome_group = case_when(Syndrome == "autogamous" ~ "Autogamous",
+                               Syndrome == "bat" ~ "Mammal",
+                               Syndrome == "hummingbird" ~ "Bird", 
+                               TRUE ~ "Insect" )
+  )
+phlox
 
-
+```
+#Replot
+```{r}
+phlox%>%
+  ggplot(aes(x=mean_length, y=mean_width, color=syndrome_group))+
+  geom_point()
+```
 
 
 
