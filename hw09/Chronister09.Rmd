@@ -77,8 +77,26 @@ str_count(gliadin_seq, tata_box)
 ```
 #Create CAAT sequence searrch string.
 ```{r}
-tata_seq <- 
+caat_seq <- "CCAAT.{100,150}ATG"
+str_count(gliadin_seq, caat_seq)
 ```
+#The CAAT sequence occurs twice in those conditions. I got hung up on this for a few minutes because a space worked its way in between the "(" and the "ATC".  I kept coming up with 0 in the results.  
+#Now for the TATA box extraction
+```{r}
+caat_seqs_all <- str_extract_all(gliadin_seq, caat_seq, simplify = TRUE)
+caat_seqs_all
+str_count(caat_seqs_all)
+
+```
+#Use str_which to find which seq has tatabox
+```{r}
+tata_seq <- "CTATAA.{50,100}ATG"
+caat_tata <- str_which(caat_seqs_all, tata_seq)
+promotor <- str_subset(caat_seqs_all, tata_seq)
+promotor
+str_length(promotor)
+```
+
 
 
 
