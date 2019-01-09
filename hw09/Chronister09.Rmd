@@ -180,14 +180,41 @@ flowers_tidy
 #Separate the genus and species.
 ```{r}
 flowers_spec <- flowers_tidy%>%
-  separate(species, into = c("genus", "species", NA, NA))
+  separate(species, into = c("genus", "species"), sep = " ", extra = "drop")
 flowers_spec
 ```
 #Group data and summarize the means
 ```{r}
-flowers_spec%>%
+flowers_spec <- flowers_spec%>%
   group_by(genus, species)%>%
   summarize(mean(cor_length), mean(throat_width), max(cor_length), max(throat_width))
+flowers_spec
+```
+
+***
+###Import and wrangle second data set
+```{r}
+(pollinators_raw <- read_csv(file.path(file_path, "flower_pollinators.csv")))
+```
+```{r}
+pollinators <- pollinators_raw %>%
+  select(-c(Color, starts_with("Source"))) %>%
+  filter(!is.na(Pollinator)) %>%
+  separate(Species, into = c("genus", "species"), sep = " ", extra = "drop")
+pollinators
+```
+
+#separate out the major polinator
+```{r}
+pollinators <- pollinators%>%
+  separate(Pollinator, into = "Syndrome", sep = " |,", extra = "drop")
+pollinators
+```
+
+#Join the datasets
+```{r}
+phlox <- inner_join(flowers_spec, pollinators, by = c("genus", "species"))
+phlox
 ```
 
 
