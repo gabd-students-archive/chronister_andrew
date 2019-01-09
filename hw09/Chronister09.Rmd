@@ -272,6 +272,83 @@ phlox%>%
   ggplot(aes(x=mean_length, y=mean_width, color=syndrome_group))+
   geom_point()
 ```
+***
+###Improving the plots
+#using brewer palaettes
+```{r}
+phlox%>%
+  ggplot()+
+  geom_point(aes(x=mean_length,
+                 y=mean_width,
+                 color=syndrome_group))+
+  scale_color_brewer(type = "qual", palette = "Dark2")
+```
+#experimenting with colors
+```{r}
+phlox%>%
+  ggplot()+
+  geom_point(aes(x=mean_length,
+                 y=mean_width,
+                 color=syndrome_group))+
+  scale_color_brewer(type = "div", palette = "BrBG")
+```
+```{r}
+phlox%>%
+  ggplot()+
+  geom_point(aes(x=mean_length,
+                 y=mean_width,
+                 color=syndrome_group))+
+  scale_color_brewer(type = "seq", palette = "Greens")
+```
+```{r}
+phlox%>%
+  ggplot()+
+  geom_point(aes(x=mean_length,
+                 y=mean_width,
+                 color=syndrome_group))+
+  scale_color_viridis_d(option = "magma")
+```
+```{r}
+phlox%>%
+  ggplot()+
+  geom_point(aes(x=mean_length,
+                 y=mean_width,
+                 color=syndrome_group))+
+  scale_color_viridis_d(option = "inferno")
+```
+#The mammal color is really hard to see.  
+```{r}
+semo_palette <- c("#C8102E", "#DBE245", "#71C5E8", "#B07C57")
+phlox%>%
+  ggplot()+
+  geom_point(aes(x=mean_length,
+                 y=mean_width,
+                 shape=syndrome_group,
+                 fill=syndrome_group))+
+  scale_shape_manual(values = c(22:25))+
+  scale_fill_manual(values = semo_palette)
+```
+#Tufte plot
+```{r}
+library(ggthemes)
+semo_palette <- c("#C8102E", "#DBE245", "#71C5E8", "#B07C57")
+phlox%>%
+  ggplot()+
+  geom_point(aes(x=mean_length,
+                 y=mean_width,
+                 shape=syndrome_group,
+                 fill=syndrome_group),
+             size = 2)+
+  labs(shape="Syndrome",
+       fill="Syndrome",
+       x="Mean Length (cm)",
+       y="Mean Width (cm)")+
+  theme_tufte()+
+  scale_shape_manual(values=c(22:25))+
+  scale_fill_brewer(palette = "Dark2")+
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 12))
+```
 
 
 
