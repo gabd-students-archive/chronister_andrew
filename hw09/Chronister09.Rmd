@@ -161,6 +161,7 @@ ant_abundance%>%
 ```{r}
 library(tidyverse)
 library(htmlwidgets)
+library(Polychrome)
 file_path <- "~/Documents/BI685Files/GitHubDocs/chronister_andrew/data"
 ```
 ***
@@ -350,8 +351,107 @@ phlox%>%
         axis.title = element_text(size = 12))
 ```
 
-
-
+***
+###Part 4:Customize your plots
+#Make four scatterplots with maxwidth as a function of maxlength
+##THIS PLOT IS NOT ONE OF THE FOUR.  I'm just printing the most basic plot.
+```{r}
+phlox%>%
+  ggplot(aes(x=max_length, y=max_width, color=syndrome_group))+
+  geom_point()
+```
+#Plot1
+```{r}
+copper_dome <- c("#B07C57", "#7A6855", "#8A8F64", "#A4A9AD")
+phlox%>%
+  ggplot()+
+  geom_point(aes(x=max_length,
+                 y=max_width,
+                 shape=syndrome_group,
+                 fill=syndrome_group),
+             size=2)+
+  labs(shape="Syndrome",
+       fill="Syndrome",
+       x="Max Length (cm)",
+       y="Max Length (cm)")+
+  scale_shape_manual(values = c(22:25))+
+  scale_fill_manual(values = copper_dome)
+```
+#Plot2
+```{r}
+phlox%>%
+  ggplot()+
+  geom_point(aes(x=max_length,
+                 y=max_width,
+                 shape=syndrome_group,
+                 fill=syndrome_group))+
+  labs(shape="Syndrome",
+       fill="Syndrome",
+       x="Max Length (cm)",
+       y="Max Length (cm)")+
+  theme_solarized()+
+  scale_fill_brewer(palette = "Accent")+
+  scale_shape_manual(values = c(21:24))
+ 
+```
+#Plot3
+```{r}
+phlox%>%
+  ggplot()+
+  geom_point(aes(x=max_length,
+                 y=max_width,
+                 shape=syndrome_group,
+                 fill=syndrome_group))+
+  labs(shape="Syndrome",
+       fill="Syndrome",
+       x="Max Length (cm)",
+       y="Max Length (cm)")+
+  theme_economist()+
+  scale_shape_manual(values=c(21:24))
+  
+```
+#Plot4
+```{r}
+phlox%>%
+  ggplot()+
+  geom_point(aes(x=max_length,
+                 y=max_width,
+                 shape=syndrome_group,
+                 fill=syndrome_group),
+             size = 3)+
+  labs(shape="Syndrome",
+       fill="Syndrome",
+       x="Max Length (cm)",
+       y="Max Length (cm)")+
+  theme_fivethirtyeight()+
+  scale_shape_manual(values = (21:24))+
+  scale_fill_fivethirtyeight()
+  
+   
+ 
+  
+  
+  
+```
+#Plot5, make it ugly
+```{r}
+phlox%>%
+  ggplot()+
+  geom_point(aes(x=max_length,
+                 y=max_width,
+                 shape=syndrome_group,
+                 fill=syndrome_group),
+             size = 3)+
+  labs(shape="Syndrome",
+       fill="Syndrome",
+       x="Max Length (cm)",
+       y="Max Length (cm)")+
+  theme_wsj()+
+ scale_shape_manual(values = (21:24))+
+  scale_color_excel()
+  
+```
+#I used excel colors.  Don't know if it gets uglier than that.  
 
 
 
