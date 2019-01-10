@@ -121,7 +121,7 @@ mo_map
 us_map + mo_map + plot_layout(ncol = 2, widths = c(1.5, 1))
 ```
 #Outline Maps
-#This should be interesting... I was born in Hawaii. It isn't part of the map_data, so I'll choose Utah, where I lived for two years and learned to ski.   
+#This should be interesting... I was born in Hawaii. It isn't part of the map_data, so I'll choose Utah, where I lived for two years and learned to ski.  I lived in Ogden in Weber county.  My initials are AKC. The counties I chose to put in gray are Kane and Carbon.   
 ```{r}
 us_utah <- map_data(map="state",
                       region = "utah")
@@ -166,6 +166,52 @@ akc_counties <- ggplot()+
 
 akc_usa + akc_counties + plot_layout(ncol = 2, widths = c(1.5,1))
 ```
+#The Hawaii Gambit... Born on Oahu, and have visited Hawaii (the big island) and Maui. I'll see if I can get that to work.  I love working with maps.    
+```{r}
+hawaii <- map_data("world", "USA:Hawaii")
+hawaii_oahu <- map_data("world", "USA:Hawaii:Oahu")
+other_islands <- map_data("world", c("USA:Hawaii:Hawaii", "USA:Hawaii:Maui"))
+
+akc_usa <- ggplot()+
+  geom_polygon(data = us_utah,
+               aes(x = long,
+               y = lat,
+               group = group),
+               fill = "black")+
+  geom_polygon(data = usa,
+               aes(x = long,
+               y = lat,
+               group = group),
+               fill = NA,
+               color = "black")+
+  theme_map()+
+  coord_fixed(1.3)
+
+akc_hawaii <- ggplot()+
+  geom_polygon(data = hawaii,
+               aes(x = long,
+                   y = lat,
+                   group = group),
+               fill = NA,
+               color = "black")+
+  geom_polygon(data = hawaii_oahu,
+               aes(x = long,
+                   y = lat,
+                   group = group),
+               fill = "black")+
+  geom_polygon(data = other_islands,
+               aes(x = long,
+                   y = lat,
+                   group = group),
+               fill = "gray")+
+  theme_map()+
+  coord_fixed(1.3)
+akc_usa + akc_hawaii + plot_layout(ncol = 2, widths = c(1.5, 1))
+```
+#Hmm.  The big island of Hawaii didn't show up as gray.  I guess the name in map_data is different.  The code is there that would select it.  On to Part 2!
+
+***
+###Part 2: Dot distribution maps
 
 
 
