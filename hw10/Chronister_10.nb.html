@@ -1769,8 +1769,54 @@ $(document).ready(function () {
 <hr />
 <p>###Change knit directory</p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxua25pdHI6Om9wdHNfa25pdCRzZXQocm9vdC5kaXIgPSAnfi9Eb2N1bWVudHMvQkk2ODVGaWxlcy9HaXRIdWJEb2NzL2Nocm9uaXN0ZXJfYW5kcmV3LycpXG5gYGAifQ== -->
+<pre class="r"><code>knitr::opts_knit$set(root.dir = '~/Documents/BI685Files/GitHubDocs/chronister_andrew/')</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<hr />
+<p>###Install packages *** ###Load libraries</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyYXN0ZXIpXG5saWJyYXJ5KHRpZHl2ZXJzZSlcbmxpYnJhcnkoZ2d0aGVtZXMpXG5saWJyYXJ5KHBhdGNod29yaylcbmxpYnJhcnkobWFwdG9vbHMpXG5gYGAifQ== -->
+<pre class="r"><code>library(raster)
+library(tidyverse)
+library(ggthemes)
+library(patchwork)
+library(maptools)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiQ2hlY2tpbmcgcmdlb3MgYXZhaWxhYmlsaXR5OiBUUlVFXG4ifQ== -->
+<pre><code>Checking rgeos availability: TRUE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShnZ21hcClcbmBgYCJ9 -->
+<pre class="r"><code>library(ggmap)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBnZ3Bsb3QyXG5Hb29nbGUgTWFwcyBBUEkgVGVybXMgb2YgU2VydmljZTogaHR0cDovL2RldmVsb3BlcnMuZ29vZ2xlLmNvbS9tYXBzL3Rlcm1zLlxuUGxlYXNlIGNpdGUgZ2dtYXAgaWYgeW91IHVzZSBpdDogc2VlIGNpdGF0aW9uKFwiZ2dtYXBcIikgZm9yIGRldGFpbHMuXG4ifQ== -->
+<pre><code>Loading required package: ggplot2
+Google Maps API Terms of Service: http://developers.google.com/maps/terms.
+Please cite ggmap if you use it: see citation(&quot;ggmap&quot;) for details.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShtYXJtYXApXG5gYGAifQ== -->
+<pre class="r"><code>library(marmap)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYbWFybWFw4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6cmFzdGVy4oCZOlxuXG4gICAgYXMucmFzdGVyXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6Z3JEZXZpY2Vz4oCZOlxuXG4gICAgYXMucmFzdGVyXG4ifQ== -->
+<pre><code>
+Attaching package: ‘marmap’
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiSFcxMDogTWFwcyIKYXV0aG9yOiAiQW5kcmV3IENocm9uaXN0ZXIiCmRhdGU6ICJgciBmb3JtYXQoU3lzLnRpbWUoKSwgJyVkICVCICVZJylgIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKZWRpdG9yX29wdGlvbnM6IAogIGNodW5rX291dHB1dF90eXBlOiBpbmxpbmUKLS0tCioqKgojIyNDaGFuZ2Uga25pdCBkaXJlY3RvcnkKCgoKCg==</div>
+The following object is masked from ‘package:raster’:
+
+    as.raster
+
+The following object is masked from ‘package:grDevices’:
+
+    as.raster</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiSFcxMDogTWFwcyIKYXV0aG9yOiAiQW5kcmV3IENocm9uaXN0ZXIiCmRhdGU6ICJgciBmb3JtYXQoU3lzLnRpbWUoKSwgJyVkICVCICVZJylgIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKZWRpdG9yX29wdGlvbnM6IAogIGNodW5rX291dHB1dF90eXBlOiBpbmxpbmUKLS0tCioqKgojIyNDaGFuZ2Uga25pdCBkaXJlY3RvcnkKYGBge3J9CmtuaXRyOjpvcHRzX2tuaXQkc2V0KHJvb3QuZGlyID0gJ34vRG9jdW1lbnRzL0JJNjg1RmlsZXMvR2l0SHViRG9jcy9jaHJvbmlzdGVyX2FuZHJldy8nKQpgYGAKKioqCiMjI0luc3RhbGwgcGFja2FnZXMKKioqCiMjI0xvYWQgbGlicmFyaWVzCmBgYHtyfQpsaWJyYXJ5KHJhc3RlcikKbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkoZ2d0aGVtZXMpCmxpYnJhcnkocGF0Y2h3b3JrKQpsaWJyYXJ5KG1hcHRvb2xzKQpsaWJyYXJ5KGdnbWFwKQpsaWJyYXJ5KG1hcm1hcCkKYGBgCgoKCgo=</div>
 
 
 

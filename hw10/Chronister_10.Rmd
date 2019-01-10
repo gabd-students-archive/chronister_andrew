@@ -8,6 +8,22 @@ editor_options:
 ---
 ***
 ###Change knit directory
+```{r}
+knitr::opts_knit$set(root.dir = '~/Documents/BI685Files/GitHubDocs/chronister_andrew/')
+```
+***
+###Install packages
+***
+###Load libraries
+```{r}
+library(raster)
+library(tidyverse)
+library(ggthemes)
+library(patchwork)
+library(maptools)
+library(ggmap)
+library(marmap)
+```
 
 
 
