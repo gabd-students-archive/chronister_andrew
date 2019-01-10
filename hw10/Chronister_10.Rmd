@@ -117,6 +117,10 @@ mo_map <- ggplot()+
 mo_map
 ```
 
+```{r}
+us_map + mo_map + plot_layout(ncol = 2, widths = c(1.5, 1))
+```
+
 
 
 
