@@ -1,0 +1,14 @@
+---
+title: "HW10: Maps"
+author: "Andrew Chronister"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+***
+###Change knit directory
+
+
+
+
