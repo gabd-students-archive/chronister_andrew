@@ -283,7 +283,48 @@ base + geom_point(data = both_species,
        shape = "Species")
 ```
 ***
-###Recreate with SO number as seed
+###Recreate with SO number as seed.  
+```{r}
+set.seed(1065450)
+#I could just redo everything from here with the existing code and should get the new results.  
+bigfoot <- read_csv(file.path(file_path, "bigfoot.csv"))
+bigfoot <- filter(bigfoot,
+                   long >= min_long & long <= max_long,
+                   lat >= min_lat & lat <= max_lat) %>%
+  sample_n(300) %>%
+  mutate(name = "Gigantopithecus") %>%
+  select(name, long, lat)
+```
+#Bears data already read in.  
+```{r}
+both_species <- bind_rows(bigfoot, bears)
+
+head(both_species)
+tail(both_species)
+```
+```{r}
+base = get_stamenmap(bbox = c(min_long,
+                              min_lat,
+                              max_long,
+                              max_lat),
+                     zoom = 4,
+                     maptype = "terrain-background")
+
+base <- ggmap(base)
+base + geom_point(data = both_species,
+                  aes(x = long,
+                      y = lat,
+                      shape = name,
+                      fill = name),
+                  size = 2)+
+  scale_shape_manual(values = c(22:23))+
+  labs(x = "Longitude",
+       y = "Latitude",
+       fill = "Species",
+       shape = "Species")
+```
+***
+###Part3: Bathymetry
 
 
 
