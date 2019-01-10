@@ -6,11 +6,7 @@ output: html_notebook
 editor_options: 
   chunk_output_type: inline
 ---
-***
-###Change knit directory
-```{r}
-knitr::opts_knit$set(root.dir = '~/Documents/BI685Files/GitHubDocs/chronister_andrew/')
-```
+
 ***
 ###Install packages
 ***
@@ -212,6 +208,82 @@ akc_usa + akc_hawaii + plot_layout(ncol = 2, widths = c(1.5, 1))
 
 ***
 ###Part 2: Dot distribution maps
+***
+###Load the libraries 
+#already loaded
+***
+###Define some variables. set.seed value as in assignment so I can see if I'm doing it right! 
+```{r}
+min_long <- -126
+max_long <- -104
+min_lat <- 31
+max_lat <- 50
+
+set.seed(9618973)
+file_path <-"~/Documents/BI685Files/GitHubDocs/chronister_andrew/data"
+```
+
+***
+###Read in the "Gigantopithecus" data
+```{r}
+bigfoot <- read.csv(file.path(file_path, "bigfoot.csv"))
+
+bigfoot <- filter(bigfoot,
+                  long >= min_long & long <= max_long,
+                  lat >= min_lat & lat <= max_lat) %>%
+  sample_n(300) %>%
+  mutate(name = "Gigantiopithecus") %>%
+  select(name, long, lat)
+```
+#Read in the bears data
+```{r}
+bears <- read_csv(file.path(file_path, "bears.csv"))
+
+both_species <- bind_rows(bigfoot, bears)
+
+head(both_species)
+```
+```{r}
+tail(both_species)
+```
+#Get terrain map
+```{r}
+base = get_stamenmap(bbox = c(min_long,
+                              min_lat,
+                              max_long,
+                              max_lat),
+                     zoom = 4,
+                     maptype = "terrain-background")
+ggmap(base)
+```
+```{r}
+base <- ggmap(base)
+
+base + geom_point(data = bigfoot,
+                  aes(x = long,
+                      y = lat))
+```
+```{r}
+base + geom_point(data = bears,
+                  aes(x = long,
+                  y = lat))
+```
+#Both species
+```{r}
+base + geom_point(data = both_species,
+                  aes(x = long,
+                      y = lat,
+                      shape = name,
+                      fill = name),
+                  size = 2)+
+  scale_shape_manual(values = c(22:23))+
+  labs(x = "Longitude",
+       y = "Latitude",
+       fill = "Species",
+       shape = "Species")
+```
+***
+###Recreate with SO number as seed
 
 
 
