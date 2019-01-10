@@ -325,6 +325,86 @@ base + geom_point(data = both_species,
 ```
 ***
 ###Part3: Bathymetry
+***
+###Load the libraries
+#Already loaded
+***
+###Define the variables
+```{r}
+min_long <- -170
+max_long <- 164
+min_lat <- -42
+max_lat <- -8
+
+earthquakes <- quakes %>%
+  mutate(depth = depth * 3280.84)
+```
+#load NOAA data
+```{r}
+fiji <- getNOAA.bathy(lon1 = min_long,
+                      lon2 = max_long,
+                      lat1 = min_lat,
+                      lat2 = max_lat,
+                      antimeridian = TRUE,
+                      keep = TRUE)
+```
+
+```{r}
+autoplot.bathy(fiji,
+               geom = c("raster", "contour"),
+               size = 0.3,
+               na.rm = TRUE)
+```
+```{r}
+autoplot(fiji,
+         geom = c("raster", "contour"),
+         size = 0.1,
+         na.rm = TRUE)+
+  scale_fill_gradient2(low = "dodgerblue4",
+                       mid = "gainsboro",
+                       high = "darkgreen",
+                       name = "Depth (ft)")+
+  labs(x = "Longitude",
+       y = "Latitude")+
+  theme(axis.title.y = element_text(angle = 0,
+                                    vjust = 0.5))
+```
+```{r}
+base_map <- autoplot(fiji,
+         geom = c("raster", "contour"),
+         size = 0.1,
+         na.rm = TRUE)+
+  scale_fill_gradient2(low = "dodgerblue4",
+                       mid = "gainsboro",
+                       high = "darkgreen",
+                       name = "Depth (ft)")+
+  labs(x = "Longitude",
+       y = "Latitude")+
+  theme(axis.title.y = element_text(angle = 0,
+                                    vjust = 0.5))
+```
+```{r}
+base_map + geom_point(data = earthquakes,
+                      aes(x = long,
+                      y = lat))
+```
+#Use alpha arguement
+```{r}
+base_map + geom_point(data = earthquakes,
+                      aes(x = long,
+                          y = lat,
+                          size = mag),
+                      alpha = 0.4)
+```
+#scale size a little smaller
+```{r}
+base_map + geom_point(data = earthquakes,
+                      aes(x = long,
+                          y = lat,
+                          size = mag),
+                      alpha = 0.4) +
+  scale_size_continuous(range = c(0.5, 3), name = "Magnitude")
+```
 
 
 
