@@ -417,7 +417,7 @@ max_lat <- 28
 ```
 #Read in the data
 ```{r}
-blennies <- read_csv(file.path(file_path, "blennies.csv"))
+blennies <- read_csv("data/blennies.csv")
 blennies
 ```
 #Get the caribbean data
